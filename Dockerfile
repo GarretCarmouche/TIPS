@@ -8,10 +8,10 @@ WORKDIR /app
 COPY . /app
 
 # Make sure gradlew is executable
-RUN chmod +x ./gradlew
+RUN chmod +x ./Spring/gradlew
 
 # Build the application using Gradle
-RUN ./gradlew build
+RUN ./Spring/gradlew build
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
