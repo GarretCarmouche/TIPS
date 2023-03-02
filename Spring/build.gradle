@@ -6,7 +6,7 @@ plugins {
 
 group = 'TIPS'
 version = '0.0.1-SNAPSHOT'
-sourceCompatibility = '19'
+sourceCompatibility = '11'
 
 repositories {
 	mavenCentral()
@@ -19,4 +19,10 @@ dependencies {
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+jar {
+    manifest {
+        attributes 'Main-Class': 'TIPS.TIPS.TipsApplication'
+    }
 }
