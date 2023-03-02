@@ -10,8 +10,8 @@ COPY . /app
 # Make sure gradlew is executable
 RUN chmod +x ./Spring/gradlew
 
-# Build the application using Gradle
-RUN ./Spring/gradlew build
+# Build the application using Gradle with --info flag for more detailed logging
+RUN ./Spring/gradlew build --info
 
 # Make port 8080 available to the world outside this container
 EXPOSE 8080
