@@ -7,6 +7,9 @@ WORKDIR /app
 # Copy the current directory contents into the container at /app
 COPY . /app
 
+# Make sure gradlew is executable
+RUN chmod +x ./gradlew
+
 # Build the application using Gradle
 RUN ./gradlew build
 
