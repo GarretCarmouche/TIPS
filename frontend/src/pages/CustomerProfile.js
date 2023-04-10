@@ -3,7 +3,8 @@ import '../App.css';
 import logo from '../TIPSlogo.png';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-// having trouble displaying the contents of this page
+import EmployeeHomePage from "./EmployeeHomePage";
+
 const CustomerProfile = () =>{
     const history = useHistory();
     return (
@@ -12,12 +13,12 @@ const CustomerProfile = () =>{
                 <Route path="/customer-profile">
                 <div className="App">
                     <div className="App-background">
-                        <p> You are viewing a sample customer profile page </p>
+                        <p> you have reached the customer profile page </p>
                         <div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>
                         </div> 
                         <div>
-                            <Link className="next-button" to="/signup2"> next </Link> 
+                            <Link className="next-button" to="/employee-home"> next </Link> 
                         </div>
                     </div>     
                 </div> 
@@ -34,9 +35,12 @@ const CustomerProfile = () =>{
                         </div>
                     </div>
                 </Route>
+                <Route path="/employee-home">
+                    <EmployeeHomePage />
+                </Route>
             </Switch>
         </Router>
     );
 }
 
-export default CustomerProfile
+export default CustomerProfile;
