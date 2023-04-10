@@ -1,7 +1,7 @@
 import React from "react";
 import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import Entry from './entryPage';
+import EmployeeLogin from './EmployeeLogin';
 import HomePage from './homePage';
 import logo from '../TIPSlogo.png';
 import { useHistory } from 'react-router';
@@ -57,7 +57,7 @@ const LoginPage = () => {
                         </form>
 
                         <div>
-                            <Link className="employee-login" to="/employee-entry"> employee login </Link> 
+                            <Link to="/employee-login"> employee login </Link> 
                         </div>
                         <div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>
@@ -83,8 +83,8 @@ const LoginPage = () => {
                 <Route path="/home">
                     <HomePage/> 
                 </Route>
-                <Route path="/employee-entry">
-                    <Entry/>
+                <Route path="/employee-login">
+                    <EmployeeLogin/>
                 </Route>
             </Switch>
         </Router>
