@@ -13,12 +13,39 @@ const SignupPage = () =>{
                 <Route path="/signup">
                 <div className="App">
                     <div className="App-background">
-                        <p> you have reached the sign up page </p>
+                    <img src={logo} className="App-logo" alt="logo" />
+                        <h2> <em> Sign up </em> </h2>
+                        <div >
+                        <form className= "form-group">
+                            <label> Create username:
+                                <input
+                                    type="text"
+                                    required
+                                    />
+                            </label>
+                            <p></p>
+                            <label>Create password:
+                                <input
+                                    type="password"
+                                    required
+                                     />
+                            </label>
+                            <p></p>
+                            <label>Re-enter password:
+                                <input
+                                    type="password"
+                                    required
+                                     />
+                            </label>
+                        </form>
+                        </div>
                         <div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>
                         </div> 
                         <div>
-                            <Link className="next-button" to="/signup2"> next </Link> 
+                            <Link className="next-button" to="/signup2"> next 
+                           
+                            </Link> 
                         </div>
                     </div>     
                 </div> 
