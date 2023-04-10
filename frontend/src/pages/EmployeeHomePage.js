@@ -2,6 +2,7 @@ import React from 'react';
 import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logo from '../TIPSlogo.png';
+import CustomerProfile from './CustomerProfile';
 
 const EmployeeHomePage = () =>{
     return (
@@ -11,12 +12,12 @@ const EmployeeHomePage = () =>{
                     <div className="App">
                         <div className='App-background'>
                             <h1> Current Customers </h1>
-                            <div>
-                            <a class="button" href="../customer-profile" > Sample Customer 1 </a> 
-                            <a class="button" href="../customer-profile" > Sample Customer 2 </a> 
-                            <a class="button" href="../customer-profile" > Sample Customer 3 </a> 
-                            <a class="button" href="../customer-profile" > Sample Customer 4 </a> 
-                            <a class="button" href="../customer-profile" > Sample Customer 5 </a> 
+                            <div> 
+                            <button><Link to="/customer-profile"> Sample Customer 1 </Link></button>
+                            <button><Link to="/customer-profile"> Sample Customer 2 </Link></button>
+                            <button><Link to="/customer-profile"> Sample Customer 3 </Link></button> 
+                            <button><Link to="/customer-profile"> Sample Customer 4 </Link></button>
+                            <button><Link to="/customer-profile"> Sample Customer 5 </Link></button>
                             </div> 
                         </div>
                     </div>
@@ -32,6 +33,9 @@ const EmployeeHomePage = () =>{
                         </div>     
                         </div>
                     </div>
+                </Route>
+                <Route path="/customer-profile">
+                    <CustomerProfile/>
                 </Route>
             </Switch>      
         </Router>
