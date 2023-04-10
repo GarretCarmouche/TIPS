@@ -1,28 +1,23 @@
 import React from "react";
 import '../App.css';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import EmployeeLogin from './EmployeeLogin';
-import HomePage from './homePage';
 import logo from '../TIPSlogo.png';
+import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { useHistory } from 'react-router';
-
-const LoginPage = () => {
+// having trouble displaying the contents of this page
+const CustomerProfile = () =>{
     const history = useHistory();
     return (
         <Router>
           <Switch>
-                <Route path="/login">
+                <Route path="/customer-profile">
                 <div className="App">
                     <div className="App-background">
-                        <p> you have reached the login page </p>
-                        <div>
-                            <Link to="/employee-login"> employee login </Link> 
-                        </div>
+                        <p> You are viewing a sample customer profile page </p>
                         <div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>
                         </div> 
                         <div>
-                            <Link className="next-button" to="/home"> next </Link> 
+                            <Link className="next-button" to="/signup2"> next </Link> 
                         </div>
                     </div>     
                 </div> 
@@ -39,15 +34,9 @@ const LoginPage = () => {
                         </div>
                     </div>
                 </Route>
-                <Route path="/home">
-                    <HomePage />
-                </Route>
-                <Route path="/employee-login">
-                    <EmployeeLogin/>
-                </Route>
             </Switch>
         </Router>
     );
-};
+}
 
-export default LoginPage;
+export default CustomerProfile
