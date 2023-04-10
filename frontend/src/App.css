@@ -1,3 +1,4 @@
+/* logo and background */
 .App {
   text-align: center;
 }
@@ -6,6 +7,13 @@
   height: 40vmin;
   pointer-events: none;
   position:relative;
+}
+
+.App-logo-corner {
+  height: 20vmin;
+  position: absolute;
+  top: 15px;
+  left: 15px;
 }
 
 .App-background {
@@ -19,10 +27,7 @@
   font-size: calc(10px + 2vmin);
 }
 
-.App-link {
-  color: #61dafb;
-}
-
+/* buttons */
 .button {
   background-color: rgb(249, 29, 213, 0.6);
   border: none;
@@ -73,4 +78,179 @@
   position: absolute;
   bottom: 10px;
   right: 10px;
+}
+
+/* input forms */
+.form-background {
+  display: block;
+  border: 1px solid white;
+  border-radius: 1%;
+  background-color: rgb(97, 97, 129);
+  padding: 20px;
+}
+
+.form-group {
+  text-align:left;
+  font-size:medium;
+}
+
+input[type=text], [type=password], [type=number]{
+  text-align: right;
+  border-radius:1%;
+  border:#0A0519;
+  background-color: rgb(69, 69, 92);
+  color: white;
+  padding-top: 6px;
+  padding-bottom: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  width:stretch;
+  font-size: 100%;
+}
+
+input[type=date] {
+  border-radius: 1%;
+  background-color: rgb(97, 97, 129);
+  margin-left: 20px;
+  padding: 3px 6px 3px 6px;
+  border: 1px solid #ccc;
+  color: white;
+  font-family:Arial, Helvetica, sans-serif;
+  vertical-align: middle;
+}
+
+/* Home page - purchase history table */
+.purchase-history-table {
+  border: 1px solid white;
+  border-radius: 3%;
+  margin: 50px;
+  padding-bottom: 10px;
+  box-shadow: 0px 8px 16px 0px rgba(155, 108, 108, 0.2);
+}
+
+.purchase-history-table th {
+  padding-bottom: 10px;
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  padding-top: 8px;
+}
+
+.purchase-history-table td {
+  padding-right: 30px;
+  padding-left: 30px;
+  text-align: left;
+  background-color: rgb(69, 69, 92);
+}
+
+/* Home page - profile and dropdown menu */
+.home-header {
+  display: inline-block;
+  vertical-align: middle;
+  font-weight: bold;
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.profile-img {
+  height: 30px;
+  width: 30px;
+  border-radius: 90%;
+  margin-right: 20px;
+}
+
+.dropdown-wrapper {
+  position: relative;
+  display:inline-flex;
+}
+
+.dropdown-header {
+  display: flex;
+  align-items: center;
+  padding: 0px;
+  cursor: pointer;
+}
+
+.dropdown-header-text {
+  margin-right: 8px;
+  vertical-align: top;
+}
+
+.dropdown-arrow {
+  margin-left: auto;
+  font-size: 15px;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 130%;
+  right: 0;
+  z-index: 1;
+  background-color: rgb(69, 69, 92);
+  min-width: 160px;
+  border-radius: 4px;
+  overflow: hidden;
+  padding-bottom: 10px;
+}
+
+.dropdown-item-button {
+  background-color: rgb(249, 29, 213, 0.6);
+  border: none;
+  border-radius: 14em;
+  width: 160px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  color: white;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  margin-top: 10px;
+  display: inline-block;
+  font-size: small;
+}
+
+/* Account page - payment method table */
+.payment-method-table {
+  border: 1px solid white;
+  border-radius: 3%;
+  margin: 50px;
+}
+
+.payment-method-table th {
+  
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.payment-method-table button {
+  position:relative;
+  right: -40px;
+}
+
+.payment-method-table td {
+  padding-right: 10px;
+  padding-left: 10px;
+  text-align: left;
+}
+
+.selected-row {
+  background-color: rgb(69, 69, 92);
+  border-right:none;
+  border-left: none;
+}
+
+.selected-row td:first-child::after {
+  content: "selected payment method";
+  vertical-align: middle;
+  margin-left: 10px;
+  font-size: medium;
+  font-weight: 500;
+  color: white;
+}
+
+/* Account page */
+.account-header {
+  display: flex;
+  align-items: center;
 }

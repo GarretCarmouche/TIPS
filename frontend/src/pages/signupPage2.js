@@ -13,7 +13,55 @@ const SignupPage2 = () =>{
                 <Route path="/signup2">
                     <div className="App">
                         <div className='App-background'>
-                            <p> sign up - step 2 </p>
+                            <div >
+                            
+                            <form className= "form-group">
+                            <h1> Enter state-issued ID information: </h1>
+                                <label> Driver's License number: 
+                                    <input
+                                        type="number"
+                                        />
+                                </label>
+                                <p></p>
+                                <label> Legal name:
+                                    <input
+                                        type="text"
+                                        />
+                                    </label>
+                                <p></p>
+                                <label> Birthdate:
+                                    <input 
+                                        type="date"
+                                    />
+                                </label>
+                                
+                                <h1> Enter payment information: </h1>
+                       
+                                <label> Credit card number: 
+                                    <input
+                                        type="number"
+                                        />
+                                </label>
+                                <p></p>              
+                                <label> Name on card:
+                                    <input
+                                        type="text"
+                                        />
+                                </label>
+                                <p></p>              
+                                <label> CVV:
+                                    <input
+                                        type="number"
+                                        />
+                                </label>
+                                <p></p>
+                                <label> Expiration date:
+                                    <input 
+                                        type="date"
+                                    />
+                                </label>
+                            </form>
+                            </div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>
                             <div>
                                 <Link className="next-button" to="/home"> next </Link>
