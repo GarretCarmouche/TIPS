@@ -5,6 +5,7 @@ import { useHistory } from 'react-router';
 import profile from '../profile-img.png';
 import React, { useState, useEffect } from 'react';
 import EmployeeHomePage from './EmployeeHomePage';
+import PurchasePage from './purchasePage';
 
 const CustomerProfile = () =>{  
         const [items, setItems] = useState([
@@ -68,6 +69,9 @@ const CustomerProfile = () =>{
                                         </tbody>  
                                     </table>
                                 </div>
+                                <div>
+                                <Link className="next-button" to="/purchase"> Purchase </Link>
+                                </div>
                              </div>
                         </div>
                     </Route>
@@ -85,6 +89,9 @@ const CustomerProfile = () =>{
                     </Route>
                     <Route path="/employee-home">
                         <EmployeeHomePage />
+                    </Route>
+                    <Route path="/purchase">
+                        <PurchasePage/>
                     </Route>
                 </Switch>      
             </Router>
