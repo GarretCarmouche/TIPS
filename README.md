@@ -27,5 +27,5 @@ Team 1
    this command will start the project and pull up localhost:3000/ on Google Chrome where you can interact  with the web application*
 
 *if you encounter any errors when trying to start run an 
-	npm ci 
- This will deleivers a clean install to the machine. Please contact emma.rader@ttu.edu with any other issues.
+	npm ci. 
+ This will deliver a clean install to the machine. Please contact emma.rader@ttu.edu with any other issues.
