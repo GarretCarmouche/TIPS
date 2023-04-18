@@ -12,13 +12,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class TipsController {
 
     @GetMapping("/barAdd")
-    boolean barAdd(String cardID, String customerID, String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
-        return TipsAPI.barAdd(cardID, customerID, bartenderID, bartenderName, bartenderPhone, bartenderEmail, bartenderPass, bartenderPin);
+    boolean barAdd(String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
+        return TipsAPI.barAdd(bartenderID, bartenderName, bartenderPhone, bartenderEmail, bartenderPass, bartenderPin);
     }
 
     @GetMapping("/customerAdd")
-    boolean customerAdd(String cardID, String customerName, String customerPhone, String custEmail, String custPass){
-        return TipsAPI.customerAdd(cardID, customerName, customerPhone, custEmail, custPass);
+    boolean customerAdd(String customerName, String customerPhone, String custEmail, String custPass){
+        return TipsAPI.customerAdd(customerName, customerPhone, custEmail, custPass);
     }
 
     @GetMapping("/keyAdd")
@@ -27,12 +27,12 @@ public class TipsController {
     }
 
     @GetMapping("/orderAdd")
-    boolean orderAdd(String cardID, String customerID, String orderID, String drinkName){
-        return TipsAPI.orderAdd(cardID, customerID, orderID, drinkName);
+    boolean orderAdd(String customerID, String orderID, String drinkName){
+        return TipsAPI.orderAdd(customerID, orderID, drinkName);
     }
 
     @GetMapping("/paymentAdd")
-    boolean paymentAdd(String cardID, String customerId, String bartenderID, String paymentID, String orderID, String total, String paymentDate, String cardInfo){
-        return TipsAPI.paymentAdd(cardID, customerId, bartenderID, paymentID, orderID, total, paymentDate, cardInfo);
+    boolean paymentAdd(String customerID, String paymentID, String cardInfo){
+        return TipsAPI.paymentAdd(customerID, paymentID, cardInfo);
     }
 }

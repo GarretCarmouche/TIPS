@@ -147,7 +147,7 @@ public class TipsAPI {
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO orders (cardID, customerID, orderID, drinkName) VALUE (?, ?, ?)";
+                String query = "INSERT INTO orders (customerID, orderID, drinkName) VALUE (?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
                 st.setString(1, customerID);
                 st.setString(2, orderID);
@@ -181,18 +181,17 @@ public class TipsAPI {
      * @param cardInfo The information of the card used for the payment.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean paymentAdd(String customerID, String bartenderID, String paymentID, String cardInfo){
+    public static boolean paymentAdd(String customerID, String paymentID, String cardInfo){
         int tra = 0;
         String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO payments (customerID, bartenderID, paymentID, cardInfo) VALUE (?, ?, ?, ?)";
+                String query = "INSERT INTO payments (customerID, paymentID, cardInfo) VALUE (?, ?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
                 st.setString(1, customerID);
-                st.setString(2, bartenderID);
-                st.setString(3, paymentID);
-                st.setString(4, cardInfo);
+                st.setString(2, paymentID);
+                st.setString(3, cardInfo);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     tra = 1;
