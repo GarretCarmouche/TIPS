@@ -32,7 +32,7 @@ const EmployeeLogin = () => {
                                 id="empPassword" />
                         </div>
                         <div>
-                            <button><Link to="/employee-signup"> New Employee? Sign Up Here! </Link></button>
+                            <Link className='button' to="/employee-signup"> New Employee? Sign Up Here! </Link>
                         </div>
                         <div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>

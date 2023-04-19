@@ -57,7 +57,7 @@ const LoginPage = () => {
                         </form>
 
                         <div>
-                            <Link to="/employee-login"> employee login </Link> 
+                            <Link className='button' to="/employee-login"> employee login </Link> 
                         </div>
                         <div>
                             <div className="back-button" onClick={() => {history.goBack();}}> back </div>
