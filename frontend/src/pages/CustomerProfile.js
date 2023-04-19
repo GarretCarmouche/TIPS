@@ -7,26 +7,12 @@ import React, { useState, useEffect } from 'react';
 import EmployeeHomePage from './EmployeeHomePage';
 import OrderMenuPage from './OrderMenuPage';
 import { getCurrentDate } from './utils/getCurrentDate';
+import OrderHistory from './OrderHistory';
+
 console.log(getCurrentDate())
 
 const CustomerProfile = () =>{  
-        const [items, setItems] = useState([
-            {date: getCurrentDate(), item: 'Frozen Drink', price: '$10.00'},
-            {date: getCurrentDate(), item: 'Long Island Iced Tea', price: '$14.00'},
-            {date: getCurrentDate(), item: 'Specialty Cocktail', price: '$12.00'}
-          ]);
-          const renderTableData = () => {
-            return items.map((item, index) => {
-                const { date, item: itemName, price } = item;
-                return (
-                  <tr key={index}>
-                    <td>{date}</td>
-                    <td>{itemName}</td>
-                    <td>{price}</td>
-                  </tr>
-                );
-              });
-          }
+        const [orders, setOrders] = useState([]);
         const [isOpen, setIsOpen] = useState(false);
         const history = useHistory();
     
@@ -57,18 +43,8 @@ const CustomerProfile = () =>{
                                     </div>
                                 </div>
                                 <div className="purchase-history-table">
-                                    <h2> Current Tab Total is $36.00</h2>
                                     <table>
-                                        <thead>
-                                            <tr>
-                                                <th>Date</th>
-                                                <th>Item</th>
-                                                <th>Price</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            {renderTableData()}
-                                        </tbody>  
+                                        <OrderHistory orders={orders} /> 
                                     </table>
                                 </div>
                                 <div>
@@ -94,6 +70,9 @@ const CustomerProfile = () =>{
                     </Route>
                     <Route path="/order-menu">
                         <OrderMenuPage />
+                    </Route>
+                    <Route path="/order-history">
+                        <OrderHistory />
                     </Route>
                 </Switch>      
             </Router>

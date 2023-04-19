@@ -33,7 +33,7 @@ const EmpSignUpPage = () =>{
                         <div class= "form-group">
                             <label for="employeePassword">Password:</label>
                             <input
-                                type="text"
+                                type="password"
                                 name="employeePassword"
                                 class="form-control"
                                 id="employeePassword" />
@@ -41,7 +41,7 @@ const EmpSignUpPage = () =>{
                         <div class= "form-group">
                             <label for="employeePin">4-digit Pin:</label>
                             <input
-                                type="text"
+                                type="password"
                                 name="employeePin"
                                 class="form-control"
                                 id="employeePin" />
