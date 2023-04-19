@@ -26,7 +26,7 @@ const EmployeeLogin = () => {
                         <div class= "form-group">
                             <label for="empPassword">Password:</label>
                             <input
-                                type="text"
+                                type="password"
                                 name="empPassword"
                                 class="form-control"
                                 id="empPassword" />

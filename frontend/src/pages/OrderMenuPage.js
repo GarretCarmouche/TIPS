@@ -1,67 +1,61 @@
 import '../App.css';
-import logo from '../TIPSlogo.png';
-import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
+import DisplayOrder from './DisplayOrder';
+import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import CustomerProfile from './CustomerProfile';
-import { useHistory } from 'react-router';
 
-const OrderMenuPage = () =>{
+const OrderMenuPage = () =>{ 
+    const [order, setOrder] = useState([]);
+    const [orders, setOrders] = useState([]);
     const history = useHistory();
-    
+
+    const drinkOptions = [
+        { name: 'Margarita', price: 10},
+        { name: 'Frozen Cocktail', price: 12},
+        { name: 'Beer', price: 5},
+        { name: 'Wine', price: 8},
+        { name: 'Long Island Iced Tea', price: 10},
+        { name: 'Specialty Cocktail', price: 12},
+        { name: 'Gin and Tonic', price: 10},
+        { name: 'Whiskey Sour', price: 10},
+        { name: 'Vodka Cranberry', price: 10},
+        { name: 'Rum and Coke', price: 10},
+        { name: 'Bloody Mary', price: 14},
+        { name: 'Vodka', price: 10},
+        { name: 'Tequila', price: 10},
+        { name: 'Rum', price: 10},
+        { name: 'Bourbon', price: 10},
+        { name: 'Gin', price: 10},
+        { name: 'Water', price: 0},
+        { name: 'Soda', price: 3},
+    ]
+    function addDrinkToOrder(drink) {
+        const updatedOrder = [...order, drink];
+        setOrder(updatedOrder);
+    }
+    function submitOrder() {
+        const totalPrice = order.reduce((total, drink) => total + drink.price, 0);
+        const newOrder = { drinks: order, totalPrice: totalPrice };
+        setOrders([...orders, newOrder]);
+        setOrder([]);
+        history.push('customer-profile')
+    }
     return (
-        <Router>
-            <Switch>
-                <Route path="/order-menu">
-                    <div className="App">
-                        <div className='App-background'>
-                            <h1> Add to Order </h1>
-                            <div> 
-                            <button className='button'> Margarita </button>
-                            <button className='button'> Frozen Drink </button>
-                            <button className='button'> Long Island Iced Tea </button>
-                            <button className='button'> Specialty Cocktail </button>
-                            <button className='button'> Imported Beer </button>
-                            <button className='button'> Gin and Tonic </button>
-                            <button className='button'> Whiskey Sour </button>
-                            <button className='button'> Domestic Beer </button>
-                            <button className='button'> House Wine </button>
-                            <button className='button'> Rum and Coke </button>
-                            <button className='button'> Bloody Mary </button>
-                            <button className='button'> Vodka </button>
-                            <button className='button'> Tequila </button>
-                            <button className='button'> Whiskey </button>
-                            <button className='button'> Gin </button>
-                            <button className='button'> Rum </button>
-                            <button className='button'> Gin </button>
-                            <button className='button'> Water </button>
-                            <button className='button'> Soda </button>
-                            </div> 
-                            <div>
-                                <div className="back-button" onClick={() => {history.goBack();}}> back </div>
-                            </div>
-                            <div>
-                                <Link className="next-button" to="/customer-profile"> next </Link> 
-                            </div>
-                        </div>
+        <div className="App">
+            <div className="App-background">
+                <div>
+                    {drinkOptions.map((drink, index) => (
+                        <button className='button' key={index} onClick={() => addDrinkToOrder(drink)}>
+                            {drink.name} - ${drink.price}
+                        </button>
+                    ))}
+                    <DisplayOrder order={order} />
+                    <div>
+                        <button className='button' onClick={submitOrder}> Submit Order </button> 
                     </div>
-                </Route>
-                <Route exact path="/">
-                    <div className="App">
-                        <div className="App-background">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <p></p>
-                        <div>
-                            <Link className="button" to="/login"> log in </Link> 
-                            <Link className="button" to="/signup"> sign up </Link>
-                        </div>     
-                        </div>
-                    </div>
-                </Route>
-                <Route path="/customer-profile">
-                    <CustomerProfile/>
-                </Route>
-            </Switch>      
-        </Router>
+                </div>
+            </div>
+        </div>         
     );
 }
 
