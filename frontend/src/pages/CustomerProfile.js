@@ -5,12 +5,15 @@ import { useHistory } from 'react-router';
 import profile from '../profile-img.png';
 import React, { useState, useEffect } from 'react';
 import EmployeeHomePage from './EmployeeHomePage';
+import OrderMenuPage from './OrderMenuPage';
+import { getCurrentDate } from './utils/getCurrentDate';
+console.log(getCurrentDate())
 
 const CustomerProfile = () =>{  
         const [items, setItems] = useState([
-            {date: 'April 7, 2023', item: 'Frozen Drink', price: '$10.00'},
-            {date: 'April 7, 2023', item: 'Long Island Iced Tea', price: '$14.00'},
-            {date: 'April 7, 2023', item: 'Specialty Cocktail', price: '$12.00'}
+            {date: getCurrentDate(), item: 'Frozen Drink', price: '$10.00'},
+            {date: getCurrentDate(), item: 'Long Island Iced Tea', price: '$14.00'},
+            {date: getCurrentDate(), item: 'Specialty Cocktail', price: '$12.00'}
           ]);
           const renderTableData = () => {
             return items.map((item, index) => {
@@ -54,7 +57,7 @@ const CustomerProfile = () =>{
                                     </div>
                                 </div>
                                 <div className="purchase-history-table">
-                                    <h2> Current Purchase Tab Total is $36.00</h2>
+                                    <h2> Current Tab Total is $36.00</h2>
                                     <table>
                                         <thead>
                                             <tr>
@@ -67,6 +70,9 @@ const CustomerProfile = () =>{
                                             {renderTableData()}
                                         </tbody>  
                                     </table>
+                                </div>
+                                <div>
+                                <Link className='button' to="/order-menu"> Add Drinks to Order </Link> 
                                 </div>
                              </div>
                         </div>
@@ -85,6 +91,9 @@ const CustomerProfile = () =>{
                     </Route>
                     <Route path="/employee-home">
                         <EmployeeHomePage />
+                    </Route>
+                    <Route path="/order-menu">
+                        <OrderMenuPage />
                     </Route>
                 </Switch>      
             </Router>

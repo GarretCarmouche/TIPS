@@ -13,11 +13,11 @@ const EmployeeHomePage = () =>{
                         <div className='App-background'>
                             <h1> Current Customers </h1>
                             <div> 
-                            <button><Link to="/customer-profile"> Sample Customer 1 </Link></button>
-                            <button><Link to="/customer-profile"> Sample Customer 2 </Link></button>
-                            <button><Link to="/customer-profile"> Sample Customer 3 </Link></button> 
-                            <button><Link to="/customer-profile"> Sample Customer 4 </Link></button>
-                            <button><Link to="/customer-profile"> Sample Customer 5 </Link></button>
+                            <Link className='button' to="/customer-profile"> Sample Customer 1 </Link>
+                            <Link className='button' to="/customer-profile"> Sample Customer 2 </Link>
+                            <Link className='button' to="/customer-profile"> Sample Customer 3 </Link> 
+                            <Link className='button' to="/customer-profile"> Sample Customer 4 </Link>
+                            <Link className='button' to="/customer-profile"> Sample Customer 5 </Link>
                             </div> 
                         </div>
                     </div>
