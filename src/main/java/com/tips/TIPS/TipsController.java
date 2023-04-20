@@ -40,4 +40,9 @@ public class TipsController {
     int getCustomerFromLogin(String customerEmail, String customerPassword){
         return TipsAPI.getCustomerFromLogin(customerEmail, customerPassword);
     }
+
+    @GetMapping("/getCustomerFromCardId")
+    int getCustomerFromCardId(int cardId){
+        return TipsAPI.getCustomerFromCardId(cardId);
+    }
 }

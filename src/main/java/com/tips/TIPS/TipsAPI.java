@@ -8,6 +8,43 @@ public class TipsAPI {
     static String db = "Tips_dev";
     static String user = "test";
     static String pass = "1234";
+    static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
+
+    /**
+ * This method retrieves the customer ID associated with a given card ID from the database.
+ *
+ * @param cardId The card ID to search for in the database.
+ * @return The customer ID associated with the given card ID, or -1 if no data is found,
+ *         or 0 if an exception occurs.
+ */
+    public static int getCustomerFromCardId(int cardId){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from keyCard WHERE cardId = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+cardId);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return -1;
+                }
+                if(rs.next()){
+                    return rs.getInt("customerId");
+                }
+                return 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return 0;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
 
     /**
      * This function retrieves the customer ID from the database using the customer's email and password.
@@ -17,7 +54,6 @@ public class TipsAPI {
      * @return The customer ID if found, -1 if no data is found, and 0 if an exception occurs.
      */
     public static int getCustomerFromLogin(String customerEmail, String customerPassword){
-        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
@@ -60,7 +96,6 @@ public class TipsAPI {
      */
     public static boolean barAdd(String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
         int tra = 0;
-        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
@@ -103,7 +138,6 @@ public class TipsAPI {
      */
     public static boolean customerAdd(String customerName, String customerPhone, String custEmail, String custPass){
         int tra = 0;
-        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
@@ -143,7 +177,6 @@ public class TipsAPI {
      */
     public static boolean keyAdd(String cardID, String customerID){
         int tra = 0;
-        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
@@ -181,7 +214,6 @@ public class TipsAPI {
      */
     public static boolean orderAdd(String customerID, String orderID, String drinkName){
         int tra = 0;
-        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
@@ -221,7 +253,6 @@ public class TipsAPI {
      */
     public static boolean paymentAdd(String customerID, String paymentID, String cardInfo){
         int tra = 0;
-        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
