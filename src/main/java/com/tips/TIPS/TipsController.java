@@ -50,4 +50,9 @@ public class TipsController {
     boolean unlinkCardFromCustomer(int cardID){
         return TipsAPI.unlinkCardFromCustomer(cardID);
     }
+
+    @GetMapping("/clearAllCards")
+    boolean clearAllCards(){
+        return TipsAPI.clearAllCards();
+    }
 }

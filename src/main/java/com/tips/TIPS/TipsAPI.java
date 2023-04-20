@@ -10,6 +10,26 @@ public class TipsAPI {
     static String pass = "1234";
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
 
+    public static boolean clearAllCards(){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "DELETE from keyCard";
+                PreparedStatement st = con.prepareStatement(query);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Unlinks a card from its customer in the database.
      *
