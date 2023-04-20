@@ -15,11 +15,11 @@ Team 1
    to install the corrent version of npm
 
 4. Then run 
-	npm install React-scripts --save
+	npm install react-scripts --save
    to install React
 
 5. Then run
-	npm install React-router-dom@5.2.0
+	npm install react-router-dom@5.2.0
     to install the routing libraries provided by React
 
 6. Finally run an 
