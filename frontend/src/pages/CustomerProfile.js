@@ -8,6 +8,9 @@ import EmployeeHomePage from './EmployeeHomePage';
 import OrderMenuPage from './OrderMenuPage';
 import { getCurrentDate } from './utils/getCurrentDate';
 import OrderHistory from './OrderHistory';
+import CheckoutPage from './CheckoutPage';
+import DisplayOrder from './DisplayOrder';
+
 
 console.log(getCurrentDate())
 
@@ -49,7 +52,10 @@ const CustomerProfile = () =>{
                                 </div>
                                 <div>
                                 <Link className='button' to="/order-menu"> Add Drinks to Order </Link> 
+                                
                                 </div>
+                                <div><Link className="button" to="/checkout"> Checkout </Link></div>
+                                
                              </div>
                         </div>
                     </Route>
@@ -73,6 +79,9 @@ const CustomerProfile = () =>{
                     </Route>
                     <Route path="/order-history">
                         <OrderHistory />
+                    </Route>
+                    <Route path="/checkout">
+                        <CheckoutPage />
                     </Route>
                 </Switch>      
             </Router>

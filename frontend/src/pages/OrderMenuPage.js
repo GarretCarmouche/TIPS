@@ -3,6 +3,8 @@ import React, { useState, useEffect } from 'react';
 import DisplayOrder from './DisplayOrder';
 import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import CustomerProfile from './CustomerProfile';
+import OrderHistory from './OrderHistory';
+
 
 const OrderMenuPage = () =>{ 
     const [order, setOrder] = useState([]);
@@ -33,12 +35,12 @@ const OrderMenuPage = () =>{
         const updatedOrder = [...order, drink];
         setOrder(updatedOrder);
     }
-    function submitOrder() {
+    function submitOrder(order) {
         const totalPrice = order.reduce((total, drink) => total + drink.price, 0);
         const newOrder = { drinks: order, totalPrice: totalPrice };
         setOrders([...orders, newOrder]);
         setOrder([]);
-        history.push('customer-profile')
+        history.push('/customer-profile')
     }
     return (
         <div className="App">
@@ -51,7 +53,7 @@ const OrderMenuPage = () =>{
                     ))}
                     <DisplayOrder order={order} />
                     <div>
-                        <button className='button' onClick={submitOrder}> Submit Order </button> 
+                        <button className='button' onClick={() =>submitOrder(order)}> Submit Order </button> 
                     </div>
                 </div>
             </div>
