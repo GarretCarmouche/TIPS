@@ -10,6 +10,10 @@ public class TipsAPI {
     static String pass = "1234";
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
 
+    /**
+     * This method clears all cards from the keyCard table in the database.
+     * @return true if the operation was successful and at least one row was affected, false otherwise
+     */
     public static boolean clearAllCards(){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
