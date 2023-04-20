@@ -1,7 +1,6 @@
 import '../App.css';
 import React, { useState, useEffect } from 'react';
 import { getCurrentDate } from './utils/getCurrentDate';
-import OrderHistory from './OrderHistory';
 import OrderMenuPage from './OrderMenuPage';
 
 const DisplayOrder = ({order}) =>{ 
@@ -10,7 +9,7 @@ const DisplayOrder = ({order}) =>{
         <div>
             <h2>Adding to Order:</h2>
             <ul>
-                {order.map((drink, index) => (
+                {order.map((drink) => (
                     <div>{drink.name} - ${drink.price}</div>
                 ))}
             </ul>

@@ -7,7 +7,7 @@ import React, { useState, useEffect } from 'react';
 import EmployeeHomePage from './EmployeeHomePage';
 import OrderMenuPage from './OrderMenuPage';
 import { getCurrentDate } from './utils/getCurrentDate';
-import OrderHistory from './OrderHistory';
+import CurrentOrder from './CurrentOrder';
 import CheckoutPage from './CheckoutPage';
 import DisplayOrder from './DisplayOrder';
 
@@ -47,7 +47,7 @@ const CustomerProfile = () =>{
                                 </div>
                                 <div className="purchase-history-table">
                                     <table>
-                                        <OrderHistory orders={orders} /> 
+                                        <CurrentOrder orders={orders} /> 
                                     </table>
                                 </div>
                                 <div>
@@ -77,8 +77,8 @@ const CustomerProfile = () =>{
                     <Route path="/order-menu">
                         <OrderMenuPage />
                     </Route>
-                    <Route path="/order-history">
-                        <OrderHistory />
+                    <Route path="/current-order">
+                        <CurrentOrder />
                     </Route>
                     <Route path="/checkout">
                         <CheckoutPage />
