@@ -1,6 +1,8 @@
 package com.tips.TIPS;
 
 import java.sql.*;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 public class TipsAPI {
     static String ip = "104.154.135.177";
@@ -9,6 +11,47 @@ public class TipsAPI {
     static String user = "test";
     static String pass = "1234";
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
+
+    /**
+     * Retrieves the order history of a customer from the database.
+     *
+     * @param customerID The ID of the customer whose order history is to be retrieved.
+     * @return An ArrayList of HashMaps containing the order history of the customer. 
+     * Each HashMap represents an order and contains the OrderID and DrinkName as key-value pairs. 
+     * Returns null if no data is found or an exception occurs.
+     */
+    public static ArrayList<HashMap<String, String>> getCustomerOrderHistory(int customerID){
+        ArrayList<HashMap<String, String>> orders = new ArrayList<HashMap<String, String>>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from orders WHERE customerID = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+customerID);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return null;
+                }
+                while(rs.next()){
+                    HashMap<String, String> order = new HashMap<String, String>();
+                    order.put("OrderID",rs.getString("OrderID"));
+                    order.put("DrinkName",rs.getString("drinkName"));
+                    orders.add(order);
+                }
+                return orders;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
 
     /**
      * This method clears all cards from the keyCard table in the database.
@@ -264,16 +307,15 @@ public class TipsAPI {
      * @param drinkName The name of the drink ordered.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean orderAdd(String customerID, String orderID, String drinkName){
+    public static boolean orderAdd(String customerID, String drinkName){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO orders (customerID, orderID, drinkName) VALUE (?, ?, ?)";
+                String query = "INSERT INTO orders (customerID, drinkName) VALUE (?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
                 st.setString(1, customerID);
-                st.setString(2, orderID);
-                st.setString(3, drinkName);
+                st.setString(2, drinkName);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     System.out.println(insRows + "Updated Succesfully");
