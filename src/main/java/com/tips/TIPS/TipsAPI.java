@@ -11,27 +11,54 @@ public class TipsAPI {
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
 
     /**
- * This method retrieves the customer ID associated with a given card ID from the database.
- *
- * @param cardId The card ID to search for in the database.
- * @return The customer ID associated with the given card ID, or -1 if no data is found,
- *         or 0 if an exception occurs.
- */
-    public static int getCustomerFromCardId(int cardId){
+     * Unlinks a card from its customer in the database.
+     *
+     * @param cardID The ID of the card to be removed.
+     * @return true if the card was successfully removed, false otherwise.
+     */
+    public static boolean unlinkCardFromCustomer(int cardID){
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "select * from keyCard WHERE cardId = ?";
+                String query = "DELETE from keyCard WHERE cardID = ?";
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+cardID);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves the customer ID associated with a given card ID from the database.
+     *
+     * @param cardID The card ID to search for in the database.
+     * @return The customer ID associated with the given card ID, or -1 if no data is found,
+     *         or 0 if an exception occurs.
+     */
+    public static int getCustomerFromCardID(int cardID){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from keyCard WHERE cardID = ?";
 
                 PreparedStatement st = con.prepareStatement(query);
-                st.setString(1, ""+cardId);
+                st.setString(1, ""+cardID);
                 ResultSet rs = st.executeQuery();
                 if (!rs.isBeforeFirst()) {
                     System.out.println("No data found");
                     return -1;
                 }
                 if(rs.next()){
-                    return rs.getInt("customerId");
+                    return rs.getInt("customerID");
                 }
                 return 0;
             }
@@ -47,7 +74,7 @@ public class TipsAPI {
     }
 
     /**
-     * This function retrieves the customer ID from the database using the customer's email and password.
+     * Retrieves the customer ID from the database using the customer's email and password.
      *
      * @param customerEmail The email of the customer.
      * @param customerPassword The password of the customer.
@@ -68,7 +95,7 @@ public class TipsAPI {
                     return -1;
                 }
                 if(rs.next()){
-                    return rs.getInt("customerId");
+                    return rs.getInt("customerID");
                 }
                 return 0;
             }
@@ -176,6 +203,7 @@ public class TipsAPI {
      * @return true if the insertion was successful, false otherwise.
      */
     public static boolean keyAdd(String cardID, String customerID){
+        System.out.println(""+cardID + ""+customerID);
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");

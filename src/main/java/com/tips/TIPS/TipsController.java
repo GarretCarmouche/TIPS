@@ -41,8 +41,13 @@ public class TipsController {
         return TipsAPI.getCustomerFromLogin(customerEmail, customerPassword);
     }
 
-    @GetMapping("/getCustomerFromCardId")
-    int getCustomerFromCardId(int cardId){
-        return TipsAPI.getCustomerFromCardId(cardId);
+    @GetMapping("/getCustomerFromCardID")
+    int getCustomerFromCardID(int cardID){
+        return TipsAPI.getCustomerFromCardID(cardID);
+    }
+
+    @GetMapping("/unlinkCardFromCustomer")
+    boolean unlinkCardFromCustomer(int cardID){
+        return TipsAPI.unlinkCardFromCustomer(cardID);
     }
 }
