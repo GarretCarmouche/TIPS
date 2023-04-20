@@ -10,6 +10,44 @@ public class TipsAPI {
     static String pass = "1234";
 
     /**
+     * This function retrieves the customer ID from the database using the customer's email and password.
+     *
+     * @param customerEmail The email of the customer.
+     * @param customerPassword The password of the customer.
+     * @return The customer ID if found, -1 if no data is found, and 0 if an exception occurs.
+     */
+    public static int getCustomerFromLogin(String customerEmail, String customerPassword){
+        String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from customer WHERE custEmail = ? AND custPass = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, customerEmail);
+                st.setString(2, customerPassword);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return -1;
+                }
+                if(rs.next()){
+                    return rs.getInt("customerId");
+                }
+                return 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return 0;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
      * Adds a bartender to the database.
      * 
      * @param bartenderID The ID of the bartender.
