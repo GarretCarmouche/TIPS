@@ -1,5 +1,7 @@
 import '../App.css';
 import React, { useState, useEffect } from 'react';
+import DisplayOrder from './DisplayOrder';
+
 
 const OrderHistory = ({ orders }) =>{ 
     return (
