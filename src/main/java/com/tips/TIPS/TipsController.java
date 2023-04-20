@@ -4,6 +4,8 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 @RestController
 @RequestMapping("/TIPSController")
@@ -27,8 +29,8 @@ public class TipsController {
     }
 
     @GetMapping("/orderAdd")
-    boolean orderAdd(String customerID, String orderID, String drinkName){
-        return TipsAPI.orderAdd(customerID, orderID, drinkName);
+    boolean orderAdd(String customerID, String drinkName){
+        return TipsAPI.orderAdd(customerID, drinkName);
     }
 
     @GetMapping("/paymentAdd")
@@ -54,5 +56,20 @@ public class TipsController {
     @GetMapping("/clearAllCards")
     boolean clearAllCards(){
         return TipsAPI.clearAllCards();
+    }
+
+    @GetMapping("/getCustomerOrderHistory")
+    ArrayList<HashMap<String, String>> getCustomerOrderHistory(int customerID){
+        return TipsAPI.getCustomerOrderHistory(customerID);
+    }
+
+    @GetMapping("/updateCustomer")
+    boolean updateCustomer(int customerID, String customerName, String customerPhone, String custEmail, String custPass){
+        return TipsAPI.updateCustomer(customerID, customerName, customerPhone, custEmail, custPass);
+    }
+
+    @GetMapping("/getCustomerInfo")
+    HashMap<String,String> getCustomerInfo(int customerID){
+        return TipsAPI.getCustomerInfo(customerID);
     }
 }
