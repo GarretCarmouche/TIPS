@@ -35,4 +35,9 @@ public class TipsController {
     boolean paymentAdd(String customerID, String paymentID, String cardInfo){
         return TipsAPI.paymentAdd(customerID, paymentID, cardInfo);
     }
+
+    @GetMapping("/getCustomerLogin")
+    int getCustomerFromLogin(String customerEmail, String customerPassword){
+        return TipsAPI.getCustomerFromLogin(customerEmail, customerPassword);
+    }
 }
