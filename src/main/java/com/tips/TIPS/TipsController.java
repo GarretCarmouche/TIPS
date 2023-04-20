@@ -62,4 +62,14 @@ public class TipsController {
     ArrayList<HashMap<String, String>> getCustomerOrderHistory(int customerID){
         return TipsAPI.getCustomerOrderHistory(customerID);
     }
+
+    @GetMapping("/updateCustomer")
+    boolean updateCustomer(int customerID, String customerName, String customerPhone, String custEmail, String custPass){
+        return TipsAPI.updateCustomer(customerID, customerName, customerPhone, custEmail, custPass);
+    }
+
+    @GetMapping("/getCustomerInfo")
+    HashMap<String,String> getCustomerInfo(int customerID){
+        return TipsAPI.getCustomerInfo(customerID);
+    }
 }
