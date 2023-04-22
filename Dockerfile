@@ -1,4 +1,7 @@
-FROM openjdk:17
-ADD target/my-maven-docker-project.jar my-maven-docker-project.jar
-ENTRYPOINT ["java", "-jar","my-maven-docker-project.jar"]
+FROM openjdk:17-jdk-slim
+WORKDIR /app
+COPY pom.xml .
+COPY src ./src
+RUN mvn package
+CMD ["java", "-jar", "target/your-application.jar"]
 EXPOSE 9090
