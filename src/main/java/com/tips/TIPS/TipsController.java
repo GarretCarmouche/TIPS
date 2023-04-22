@@ -72,4 +72,9 @@ public class TipsController {
     HashMap<String,String> getCustomerInfo(int customerID){
         return TipsAPI.getCustomerInfo(customerID);
     }
+
+    @GetMapping("/getCustomerPayments")
+    ArrayList<HashMap<String, String>> getCustomerPayments(int customerID){
+        return TipsAPI.getCustomerPayments(customerID);
+    }
 }

@@ -12,6 +12,41 @@ public class TipsAPI {
     static String pass = "1234";
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
 
+    public static ArrayList<HashMap<String,String>> getCustomerPayments(int customerID){
+        ArrayList<HashMap<String,String>> payments = new ArrayList<HashMap<String,String>>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from payments WHERE customerID = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+customerID);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return null;
+                }
+                while(rs.next()){
+                    HashMap<String,String> payment = new HashMap<String,String>();
+                    payment.put("PaymentID",rs.getString("paymentID"));
+                    payment.put("CardName",rs.getString("cardName"));
+                    payment.put("CardExpiration",rs.getString("cardExpiration"));
+                    payment.put("CardNumber",rs.getString("cardNumber"));
+                    payments.add(payment);
+                }
+                return payments;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Retrieves customer information from a database using a customer ID.
      * 
