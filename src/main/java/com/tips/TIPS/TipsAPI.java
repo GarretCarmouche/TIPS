@@ -12,6 +12,257 @@ public class TipsAPI {
     static String pass = "1234";
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
 
+
+    /**
+     * Retrieves the price of a drink from the database.
+     *
+     * @param drinkName The name of the drink to retrieve the price for.
+     * @return The price of the drink as a double. Returns -1 if no data is found,
+     *         and 0 if an exception occurs.
+     */
+    public static double getDrinkPrice (String drinkName){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from drinks WHERE drinkName = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+drinkName);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return -1;
+                }
+                if(rs.next()){
+                    return rs.getDouble("drinkPrice");
+                }
+                return -1;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return 0;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * Adds a drink to the database.
+     *
+     * @param drinkName  the name of the drink to be added
+     * @param drinkPrice the price of the drink to be added
+     * @return true if the drink was successfully added, false otherwise
+     */
+    public static boolean addDrink(String drinkName, double drinkPrice){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "INSERT INTO drinks (drinkName, drinkPrice) VALUE (?, ?)";
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+drinkName);
+                st.setString(2, ""+drinkPrice);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFound");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    /**
+     * Sets the price of a drink in the database.
+     *
+     * @param drinkName The name of the drink to update.
+     * @param drinkPrice The new price of the drink.
+     * @return true if the update was successful, false otherwise.
+     */
+    public static boolean setDrinkPrice (String drinkName, double drinkPrice){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "UPDATE drinks SET drinkPrice = ? WHERE drinkName = ?";
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+drinkPrice);
+                st.setString(2, ""+drinkName);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFound");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves the primary payment method for a customer from a database.
+     *
+     * @param customerID The ID of the customer whose primary payment method is to be retrieved.
+     * @return The primary payment method of the customer if found, -1 if no data is found, and 0 if an exception occurs.
+     */
+    public static int getCustomerPrimaryPayment (int customerID){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from customer WHERE customerID = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+customerID);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return -1;
+                }
+                if(rs.next()){
+                    int primaryPayment = rs.getInt("primaryPayment");
+                    if(primaryPayment == 0){
+                        return -1;
+                    }
+                    return primaryPayment;
+                }
+                return 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return 0;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * Retrieves payment information for a specific customer and payment ID from the database.
+     * @param customerID The ID of the customer whose payment information is being retrieved.
+     * @param paymentID The ID of the payment whose information is being retrieved.
+     * @return A HashMap containing the payment information if found, otherwise null.
+     */
+    public static boolean setCustomerPrimaryPayment (int customerID, int paymentID){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "UPDATE customer SET primaryPayment = ? WHERE customerID = ?";
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+paymentID);
+                st.setString(2, ""+customerID);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFound");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+    /**
+     * Retrieves payment information for a specific customer and payment ID from the database.
+     * @param customerID The ID of the customer whose payment information is being retrieved.
+     * @param paymentID The ID of the payment whose information is being retrieved.
+     * @return A HashMap containing the payment information if found, otherwise null.
+     */
+    public static HashMap<String,String> getPaymentInfo(int customerID, int paymentID){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from payments WHERE customerID = ? AND paymentID = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+customerID);
+                st.setString(2, ""+paymentID);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return null;
+                }
+                if(rs.next()){
+                    HashMap<String, String> payment = new HashMap<String, String>();
+                    payment.put("CardName",rs.getString("cardName"));
+                    payment.put("CardExpiration",rs.getString("cardExpiration"));
+                    payment.put("CardNumber",rs.getString("cardNumber"));
+                    payment.put("CVV",rs.getString("CVV"));
+                    return payment;
+                }
+                return null;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * Retrieves a given customer's payment information from the database.
+     *
+     * @param customerID The ID of the customer whose payment information is to be retrieved.
+     * @return An ArrayList of HashMaps containing the payment information of the customer. 
+     * Each HashMap represents a payment and contains keys for PaymentID, CardName, CardExpiration, and CardNumber. 
+     * Returns null if no data is found or an exception occurs.
+     */
+    public static ArrayList<HashMap<String,String>> getCustomerPayments(int customerID){
+        ArrayList<HashMap<String,String>> payments = new ArrayList<HashMap<String,String>>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from payments WHERE customerID = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+customerID);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return null;
+                }
+                while(rs.next()){
+                    HashMap<String,String> payment = new HashMap<String,String>();
+                    payment.put("PaymentID",rs.getString("paymentID"));
+                    payment.put("CardName",rs.getString("cardName"));
+                    payment.put("CardExpiration",rs.getString("cardExpiration"));
+                    payment.put("CardNumber",rs.getString("cardNumber"));
+                    payment.put("CVV",rs.getString("CVV"));
+                    payments.add(payment);
+                }
+                return payments;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     /**
      * Retrieves customer information from a database using a customer ID.
      * 
@@ -412,24 +663,27 @@ public class TipsAPI {
     }
 
     /**
-     * This method adds a payment to the database.
-     * 
-     * @param customerID The ID of the customer associated with the payment.
-     * @param bartenderID The ID of the bartender associated with the payment.
-     * @param paymentID The ID of the payment.
-     * @param cardInfo The information of the card used for the payment.
-     * @return true if the insertion was successful, false otherwise.
+     * Adds a payment record to the database.
+     *
+     * @param customerID The ID of the customer associated with the payment
+     * @param cardNumber The credit card number
+     * @param cardName The name on the credit card
+     * @param cardExpiration The expiration date of the credit card
+     * @param CVV The CVV code of the credit card
+     * @return Returns true if the payment record was successfully added to the database, otherwise returns false
      */
-    public static boolean paymentAdd(String customerID, String paymentID, String cardInfo){
+    public static boolean paymentAdd(int customerID, String cardNumber, String cardName, String cardExpiration, int CVV){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO payments (customerID, paymentID, cardInfo) VALUE (?, ?, ?, ?)";
+                String query = "INSERT INTO payments (customerID, cardNumber, cardName, cardExpiration, CVV) VALUE (?, ?, ?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
-                st.setString(1, customerID);
-                st.setString(2, paymentID);
-                st.setString(3, cardInfo);
+                st.setString(1, ""+customerID);
+                st.setString(2, cardNumber);
+                st.setString(3, cardName);
+                st.setString(4, cardExpiration);
+                st.setString(5, ""+CVV);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     tra = 1;

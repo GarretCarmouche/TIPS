@@ -34,8 +34,8 @@ public class TipsController {
     }
 
     @GetMapping("/paymentAdd")
-    boolean paymentAdd(String customerID, String paymentID, String cardInfo){
-        return TipsAPI.paymentAdd(customerID, paymentID, cardInfo);
+    boolean paymentAdd(int customerID, String cardNumber, String cardName, String cardExpiration, int CVV){
+        return TipsAPI.paymentAdd(customerID, cardNumber, cardName, cardExpiration, CVV);
     }
 
     @GetMapping("/getCustomerLogin")
@@ -71,5 +71,40 @@ public class TipsController {
     @GetMapping("/getCustomerInfo")
     HashMap<String,String> getCustomerInfo(int customerID){
         return TipsAPI.getCustomerInfo(customerID);
+    }
+
+    @GetMapping("/getCustomerPayments")
+    ArrayList<HashMap<String, String>> getCustomerPayments(int customerID){
+        return TipsAPI.getCustomerPayments(customerID);
+    }
+
+    @GetMapping("/getPaymentInfo")
+    HashMap<String, String> getPaymentInfo(int customerID, int paymentID){
+        return TipsAPI.getPaymentInfo(customerID, paymentID);
+    }
+
+    @GetMapping("/setCustomerPrimaryPayment")
+    boolean setCustomerPrimaryPayment(int customerID, int paymentID){
+        return TipsAPI.setCustomerPrimaryPayment(customerID, paymentID);
+    }
+
+    @GetMapping("/getCustomerPrimaryPayment")
+    int getCustomerPrimaryPayment(int customerID){
+        return TipsAPI.getCustomerPrimaryPayment(customerID);
+    }
+
+    @GetMapping("/setDrinkPrice")
+    boolean setDrinkPrice(String drinkName, double drinkPrice){
+        return TipsAPI.setDrinkPrice(drinkName, drinkPrice);
+    }
+
+    @GetMapping("/addDrink")
+    boolean addDrink(String drinkName, double drinkPrice){
+        return TipsAPI.addDrink(drinkName, drinkPrice);
+    }
+
+    @GetMapping("/getDrinkPrice")
+    double getDrinkPrice(String drinkName){
+        return TipsAPI.getDrinkPrice(drinkName);
     }
 }
