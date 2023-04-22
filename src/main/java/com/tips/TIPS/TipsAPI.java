@@ -420,16 +420,17 @@ public class TipsAPI {
      * @param cardInfo The information of the card used for the payment.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean paymentAdd(String customerID, String paymentID, String cardInfo){
+    public static boolean paymentAdd(int customerID, String cardNumber, String cardName, String cardExpiration){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO payments (customerID, paymentID, cardInfo) VALUE (?, ?, ?, ?)";
+                String query = "INSERT INTO payments (customerID, cardNumber, cardName, cardExpiration) VALUE (?, ?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
-                st.setString(1, customerID);
-                st.setString(2, paymentID);
-                st.setString(3, cardInfo);
+                st.setString(1, ""+customerID);
+                st.setString(2, cardNumber);
+                st.setString(3, cardName);
+                st.setString(4, cardExpiration);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     tra = 1;
