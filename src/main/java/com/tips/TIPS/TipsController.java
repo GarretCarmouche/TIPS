@@ -92,4 +92,19 @@ public class TipsController {
     int getCustomerPrimaryPayment(int customerID){
         return TipsAPI.getCustomerPrimaryPayment(customerID);
     }
+
+    @GetMapping("/setDrinkPrice")
+    boolean setDrinkPrice(String drinkName, double drinkPrice){
+        return TipsAPI.setDrinkPrice(drinkName, drinkPrice);
+    }
+
+    @GetMapping("/addDrink")
+    boolean addDrink(String drinkName, double drinkPrice){
+        return TipsAPI.addDrink(drinkName, drinkPrice);
+    }
+
+    @GetMapping("/getDrinkPrice")
+    double getDrinkPrice(String drinkName){
+        return TipsAPI.getDrinkPrice(drinkName);
+    }
 }

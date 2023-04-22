@@ -12,6 +12,104 @@ public class TipsAPI {
     static String pass = "1234";
     static String url = "jdbc:mysql://" + ip + ":" + port + "/" + db;
 
+
+    /**
+     * Retrieves the price of a drink from the database.
+     *
+     * @param drinkName The name of the drink to retrieve the price for.
+     * @return The price of the drink as a double. Returns -1 if no data is found,
+     *         and 0 if an exception occurs.
+     */
+    public static double getDrinkPrice (String drinkName){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from drinks WHERE drinkName = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+drinkName);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return -1;
+                }
+                if(rs.next()){
+                    return rs.getDouble("drinkPrice");
+                }
+                return -1;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return 0;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
+     * Adds a drink to the database.
+     *
+     * @param drinkName  the name of the drink to be added
+     * @param drinkPrice the price of the drink to be added
+     * @return true if the drink was successfully added, false otherwise
+     */
+    public static boolean addDrink(String drinkName, double drinkPrice){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "INSERT INTO drinks (drinkName, drinkPrice) VALUE (?, ?)";
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+drinkName);
+                st.setString(2, ""+drinkPrice);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFound");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    /**
+     * Sets the price of a drink in the database.
+     *
+     * @param drinkName The name of the drink to update.
+     * @param drinkPrice The new price of the drink.
+     * @return true if the update was successful, false otherwise.
+     */
+    public static boolean setDrinkPrice (String drinkName, double drinkPrice){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "UPDATE drinks SET drinkPrice = ? WHERE drinkName = ?";
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, ""+drinkPrice);
+                st.setString(2, ""+drinkName);
+                int insRows = st.executeUpdate();
+                return insRows > 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return false;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            System.out.println("ClassNotFound");
+            e.printStackTrace();
+            return false;
+        }
+    }
+
     /**
      * Retrieves the primary payment method for a customer from a database.
      *
