@@ -34,8 +34,8 @@ public class TipsController {
     }
 
     @GetMapping("/paymentAdd")
-    boolean paymentAdd(int customerID, String cardNumber, String cardName, String cardExpiration){
-        return TipsAPI.paymentAdd(customerID, cardNumber, cardName, cardExpiration);
+    boolean paymentAdd(int customerID, String cardNumber, String cardName, String cardExpiration, int CVV){
+        return TipsAPI.paymentAdd(customerID, cardNumber, cardName, cardExpiration, CVV);
     }
 
     @GetMapping("/getCustomerLogin")
@@ -76,5 +76,20 @@ public class TipsController {
     @GetMapping("/getCustomerPayments")
     ArrayList<HashMap<String, String>> getCustomerPayments(int customerID){
         return TipsAPI.getCustomerPayments(customerID);
+    }
+
+    @GetMapping("/getPaymentInfo")
+    HashMap<String, String> getPaymentInfo(int customerID, int paymentID){
+        return TipsAPI.getPaymentInfo(customerID, paymentID);
+    }
+
+    @GetMapping("/setCustomerPrimaryPayment")
+    boolean setCustomerPrimaryPayment(int customerID, int paymentID){
+        return TipsAPI.setCustomerPrimaryPayment(customerID, paymentID);
+    }
+
+    @GetMapping("/getCustomerPrimaryPayment")
+    int getCustomerPrimaryPayment(int customerID){
+        return TipsAPI.getCustomerPrimaryPayment(customerID);
     }
 }
