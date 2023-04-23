@@ -5,12 +5,33 @@ import EmployeeLogin from './EmployeeLogin';
 import HomePage from './homePage';
 import logo from '../TIPSlogo.png';
 import { useHistory } from 'react-router';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
+import axios from "../axios";
+
+const CUSTOMER_API_URL = "/getCustomerLogin";
 
 const LoginPage = () => {
     const history = useHistory();
     const [inputs, setInputs] = useState("");
+
+    const userRef = useRef();
+    const [customerEmailInput, setEmail] = useState('');
+    const [customerPasswordInput, setPassword] = useState('');
+    const [error, setError] = useState(null);
+    const [success, setSuccess] = useState(null);
+
+    useEffect(() => {
+        setError('');
+    }, [customerEmailInput, customerPasswordInput])
+
+    function handleEmailChange(event) {
+        setEmail(event.target.value);
+    }
+
+    function handlePasswordChange(event) {
+        setPassword(event.target.value);
+    }
 
     const handleChange = (event) => {
         const name = event.target.name;
@@ -18,55 +39,89 @@ const LoginPage = () => {
         setInputs(values => ({...values, [name]: value}))
       }
 
-    const handleSubmit = (event) => {
+    function handleSubmit(event) {
         event.preventDefault();
+        // console.log("Email:", customerEmailInput);
+        // console.log("Password:", customerPasswordInput);
+
+        axios.get(CUSTOMER_API_URL, {
+            params: {
+                customerEmail: customerEmailInput,
+                customerPassword: customerPasswordInput
+            }
+        })
+        .then(function (response) {
+            var data = parseInt(response.data);
+
+            if(data == -1) {
+                setError("Incorrect Email or Password!");
+            } else {
+                setSuccess(true);
+            }
+        })
+        .catch(function (error) {
+            console.log(error);
+        })
       }
 
     return (
         <Router>
           <Switch>
                 <Route path="/login">
-                <div className="App">
-                    <div className="App-background">
-                    <img src={logo} className="App-logo" alt="logo" />
-                        <h2> <em> Log in </em></h2>
+                    <> {success ? (
+                            <section>
+                                <div className="App">
+                                    <div className="App-background">
+                                        <img src={logo} className="App-logo" alt="logo" />
+                                        <h2> <em> You are now logged in! </em></h2>
 
-                        <form onSubmit={handleSubmit} className="form-group">
-                            <label>Username:
-                                <input
-                                    type="text"
-                                    name="username"
-                                    value={inputs.username || ""} 
-                                    onChange={handleChange}
-                                    required
-                                     />
-                            </label>
-                            <p></p>
-                            <label>Password:
-                                <input
-                                    type="password"
-                                    name="password"
-                                    value={inputs.password || ""} 
-                                    onChange={handleChange}
-                                    required
-                                     />
-                            </label>
-                            <p></p>
-                            {/*<input type="submit"/>*/}
-        
-                        </form>
+                                        <div>
+                                            <Link className='button' to="/home"> Go to homepage </Link> 
+                                        </div>
 
-                        <div>
-                            <Link className='button' to="/employee-login"> employee login </Link> 
-                        </div>
-                        <div>
-                            <div className="back-button" onClick={() => {history.goBack();}}> back </div>
-                        </div> 
-                        <div>
-                            <Link className="next-button" to="/home" > next </Link> 
-                        </div>
-                    </div>     
-                </div> 
+                                    </div>     
+                                </div> 
+                            </section>
+                        ) : (
+                            <div className="App">
+                                <div className="App-background">
+                                    <img src={logo} className="App-logo" alt="logo" />
+                                    <h2> <em> Customer Log in </em></h2>
+                                    <form onSubmit={handleSubmit} className="form-group">
+                                        {/* Conditionally render the error message */}
+                                        {error && <div class="input--error">{error}</div>}
+
+                                        <label>Email:
+                                            <input
+                                                type="text"
+                                                name="username"
+                                                value={customerEmailInput} 
+                                                onChange={handleEmailChange}
+                                                required
+                                                />
+                                        </label>
+                                        <p></p>
+                                        <label>Password:
+                                            <input
+                                                type="password"
+                                                name="password"
+                                                value={customerPasswordInput} 
+                                                onChange={handlePasswordChange}
+                                                required
+                                                />
+                                        </label>
+                                        <p></p>
+                                        <div class="align--stuff">
+                                            <input class="submit--button" type="submit"/>
+                                        </div>
+                                    </form>
+                                    <div>
+                                        <Link className='button' to="/employee-login"> Employee Login </Link> 
+                                    </div>
+                                </div>     
+                            </div> 
+                        )}
+                    </>
                 </Route>
                 <Route exact path="/">
                     <div className="App">

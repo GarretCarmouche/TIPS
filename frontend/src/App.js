@@ -5,6 +5,7 @@ import axios from 'axios';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import LoginPage from './pages/LoginPage';
 import SignupPage from './pages/signupPage';
+import EmployeeHomePage from './pages/EmployeeHomePage';
 
 const testEndpoint = "https://jsonplaceholder.typicode.com/posts/1";
 
@@ -42,6 +43,9 @@ function App() {
             </Route>
             <Route path="/signup">
               <SignupPage />
+            </Route>
+            <Route path="/employee-home">
+              <EmployeeHomePage />
             </Route>
           </Switch>
           </div>
