@@ -1,5 +1,9 @@
 import React, { Component } from 'react';
 import { Link, Route } from "react-router-dom";
+import axios from "../axios";
+import { useState } from 'react';
+
+const keyAdd_API_URL = "/keyAdd";
 
 class KeyboardInput extends Component {
     constructor(props) {
@@ -11,30 +15,25 @@ class KeyboardInput extends Component {
 
     handleInputChange = (event) => {
         // Update the state with the input value
-        this.setState({ inputValue: event.target.value });
+        const inputValue = event.target.value;
+        // Check if input value has more than 10 digits
+        if (inputValue.length <= 10) {
+            this.setState({ inputValue });
+        }
     }
 
     handleSave = (event) => {
         event.preventDefault(); // Prevent form submission
         // Access the saved input data from state
         const { inputValue } = this.state;
-        // Send POST request to "keyAdd" API endpoint
-        fetch('/api/keyAdd', {
-            method: 'POST',
-            body: JSON.stringify({ input: inputValue }),
-            headers: {
-                'Content-Type': 'application/json'
+        // Do something with the input data, e.g. send it to a server
+        console.log('Input value:', inputValue);
+
+        axios.get(keyAdd_API_URL, {
+            params: {
+                cardID: inputValue
             }
         })
-            .then(response => response.json())
-            .then(data => {
-                console.log('API response:', data);
-                // Do something with the API response, if needed
-            })
-            .catch(error => {
-                console.error('API error:', error);
-                // Handle API error, if needed
-            });
     }
 
     render() {

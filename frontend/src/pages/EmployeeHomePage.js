@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logo from '../TIPSlogo.png';
 import CustomerProfile from './CustomerProfile';
 import KeyboardInput from "./RFIDcreate";
+import KeyboardInput2 from "./RFIDread";
 
 const EmployeeHomePage = () =>{
     return (
@@ -33,10 +34,10 @@ const EmployeeHomePage = () =>{
                     </div>
                 </Route>
                 <Route path="/customer-profile">
-                    <CustomerProfile/>
-                </Route>
-                <Route path="/RFIDcreate">
                     <KeyboardInput/>
+                </Route>
+                <Route path="/RFIDread">
+                    <KeyboardInput2/>
                 </Route>
             </Switch>
         </Router>
