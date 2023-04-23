@@ -504,6 +504,43 @@ public class TipsAPI {
     }
 
     /**
+     * Retrieves the employee ID from the database using the employee's email and password.
+     *
+     * @param employeeEmail The email of the employee.
+     * @param employeePassword The password of the employee.
+     * @return The employee ID if found, -1 if no data is found, and 0 if an exception occurs.
+     */
+    public static int getEmployeeFromLogin(String employeeEmail, String employeePassword){
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from employee WHERE employeeEmail = ? AND employeePassword = ?";
+
+                PreparedStatement st = con.prepareStatement(query);
+                st.setString(1, employeeEmail);
+                st.setString(2, employeePassword);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return -1;
+                }
+                if(rs.next()){
+                    return rs.getInt("employeeID");
+                }
+                return 0;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return 0;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return 0;
+        }
+    }
+
+    /**
      * Adds a bartender to the database.
      * 
      * @param bartenderID The ID of the bartender.
