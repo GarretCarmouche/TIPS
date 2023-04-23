@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM tomcat:9-jdk17-openjdk-slim
 WORKDIR /TIPS
 COPY pom.xml .
 COPY src ./src
