@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim
+FROM adoptopenjdk:17-jdk-hotspot
 WORKDIR /tips
 COPY pom.xml .
 COPY src ./src
