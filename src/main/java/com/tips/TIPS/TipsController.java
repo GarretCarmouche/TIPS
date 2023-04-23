@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/TIPSController")
-@CrossOrigin(origins = "http://api.tips1.org:9090")
+@CrossOrigin(origins = "https://backend-kosoiknx4a-uc.a.run.app")
 
 public class TipsController {
 
