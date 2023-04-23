@@ -9,7 +9,7 @@ import java.util.HashMap;
 
 @RestController
 @RequestMapping("/TIPSController")
-@CrossOrigin(origins = "http://api.tips1.org")
+@CrossOrigin(origins = "http://localhost:3000")
 
 public class TipsController {
 
@@ -41,6 +41,11 @@ public class TipsController {
     @GetMapping("/getCustomerLogin")
     int getCustomerFromLogin(String customerEmail, String customerPassword){
         return TipsAPI.getCustomerFromLogin(customerEmail, customerPassword);
+    }
+
+    @GetMapping("/getEmployeeLogin")
+    int getEmployeeFromLogin(String employeeEmail, String employeePassword){
+        return TipsAPI.getEmployeeFromLogin(employeeEmail, employeePassword);
     }
 
     @GetMapping("/getCustomerFromCardID")
