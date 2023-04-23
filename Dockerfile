@@ -1,4 +1,4 @@
-FROM adoptopenjdk:17-jdk-hotspot
+FROM openjdk:17-jdk-hotspot
 WORKDIR /tips
 COPY pom.xml .
 COPY src ./src
