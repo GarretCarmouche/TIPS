@@ -29,8 +29,8 @@ public class TipsController {
     }
 
     @GetMapping("/orderAdd")
-    boolean orderAdd(String customerID, String drinkName){
-        return TipsAPI.orderAdd(customerID, drinkName);
+    boolean orderAdd(String customerID, String drinkName, double drinkPrice){
+        return TipsAPI.orderAdd(customerID, drinkName, drinkPrice);
     }
 
     @GetMapping("/paymentAdd")
