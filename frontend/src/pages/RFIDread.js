@@ -9,6 +9,8 @@ import { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from "../axios";
 import CustomerProfile from "./CustomerProfile";
+import globalVariable from "./global";
+
 
 const CUSTOMER_API_URL = "/getCustomerLogin";
 

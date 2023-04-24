@@ -10,6 +10,8 @@ import { getCurrentDate } from './utils/getCurrentDate';
 import CurrentOrder from './CurrentOrder';
 import CheckoutPage from './CheckoutPage';
 import DisplayOrder from './DisplayOrder';
+import globalVariable from "./global";
+
 
 
 console.log(getCurrentDate())
