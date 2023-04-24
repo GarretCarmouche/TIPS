@@ -107,4 +107,9 @@ public class TipsController {
     double getDrinkPrice(String drinkName){
         return TipsAPI.getDrinkPrice(drinkName);
     }
+
+    @GetMapping("/getDrinkNames")
+    ArrayList<String> getDrinkNames(){
+        return TipsAPI.getDrinkNames();
+    }
 }
