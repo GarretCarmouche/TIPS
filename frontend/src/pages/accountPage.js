@@ -3,7 +3,8 @@ import "../App.css";
 import logo from "../TIPSlogo.png";
 import profile from "../profile-img.png";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
-import { useHistory } from "react-router-dom";import globalVariable from "./global";
+import { useHistory } from "react-router-dom";
+import globalVariable from "./global";
 
 
 import HomePage from "./homePage";
@@ -11,7 +12,7 @@ import axios from "../axios";
 
 const EntryPage = () => {
 
-  const PAYMENT_METHODS_API_URL = "/getPaymentInfo";
+  const PAYMENT_METHODS_API_URL = "/getCustomerPayments";
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [paymentMethods, setPaymentMethods] = useState([]);
@@ -118,9 +119,8 @@ const EntryPage = () => {
                                 className="profile-img"
                                 alt="profile image"
                               />
-                Your Name
+                CustomerID = {globalVariable.customerID}
                 </div>
-                <p>your_username</p>
                 </div>
                 <div>
                 <div className="payment-method-table">
