@@ -702,15 +702,16 @@ public class TipsAPI {
      * @param drinkName The name of the drink ordered.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean orderAdd(String customerID, String drinkName){
+    public static boolean orderAdd(String customerID, String drinkName, double drinkPrice){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO orders (customerID, drinkName) VALUE (?, ?)";
+                String query = "INSERT INTO orders (customerID, drinkName, drinkPrice) VALUE (?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
                 st.setString(1, customerID);
                 st.setString(2, drinkName);
+                st.setDouble(2, drinkPrice);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     System.out.println(insRows + "Updated Succesfully");
