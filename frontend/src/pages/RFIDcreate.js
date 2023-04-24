@@ -4,9 +4,10 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logo from '../TIPSlogo.png';
 import { useState } from 'react';
 import axios from "../axios";
-import CustomerProfile from "./CustomerProfile";
-const READER_API_URL = "/getCustomerFromCardID"; // API endpoint for retrieving customer data from server
-const CUSTOMER_ID = 6969;
+import globalVariable from "./global";
+import CustomerProfile from "./CustomerProfile"
+const KEY_API_URL = "/keyAdd"; // API endpoint for retrieving customer data from server
+const CUSTOMER_ID = globalVariable.customerID;
 
 const RFIDcreate = () => {
 
@@ -29,19 +30,19 @@ const RFIDcreate = () => {
         // Do something with the input data, e.g. send it to a server
         console.log('Input value:', inputValue);
 
-        axios.get(READER_API_URL, {
+        axios.get(KEY_API_URL, {
             params: {
                 cardID: inputValue,
-                CustomerID: CUSTOMER_ID
+                customerID: CUSTOMER_ID
             }
         })
             .then(response => {
                 console.log(response.data);
                 // Handle response data
-                var data = parseInt(response.data);
+                var data = response.data;
 
-                if(data == -1) {
-                    setError( "RFID Tag is not linked to any customer") ; // Set error state if customer data not found
+                if(data == false) {
+                    setError( "RFID Tag did NOT link to any customer") ; // Set error state if customer data not found
                 } else {
                     setSuccess( true); // Set success state if customer data found
                 }
@@ -61,7 +62,7 @@ const RFIDcreate = () => {
                             <div className="App">
                                 <div className="App-background">
                                     <img src={logo} className="App-logo" alt="logo" />
-                                    <h2> <em> Customer Found! </em></h2>
+                                    <h2> <em> Customer ID successfully linked to RFID Tag! </em></h2>
 
                                     <div>
                                         <Link className='button' to="/customer-profile"> Go to Customer Profile </Link>
@@ -82,7 +83,7 @@ const RFIDcreate = () => {
                                                 value={inputValue}
                                                 onChange={handleInputChange}
                                             />
-                                            <p>Input value: {inputValue}</p>
+                                            <p>Scan RFID Tag: {inputValue}</p>
                                             {error && <p>{error}</p>}
                                             <button className='button' type="submit">Save</button>
                                         </form>

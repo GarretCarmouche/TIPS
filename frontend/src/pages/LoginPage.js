@@ -80,7 +80,7 @@ const LoginPage = () => {
                                         <h2> <em> You are now logged in! </em></h2>
 
                                         <div>
-                                            <Link className='button' to="/RFIDcreate"> Go to homepage </Link>
+                                            <Link className='button' to="/RFIDcreate"> Create your Tag </Link>
                                         </div>
 
                                     </div>
