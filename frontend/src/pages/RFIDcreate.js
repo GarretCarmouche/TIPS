@@ -95,7 +95,7 @@ const RFIDcreate = () => {
                     </>
                 </Route>
                 <Route path="/customer-profile">
-                    <CustomerProfile></CustomerProfile>
+                    <CustomerProfile/>
                 </Route>
             </Switch>
         </Router>
