@@ -93,13 +93,13 @@ const SignupPage = () =>{
                 <div className="App">
                     <div className="App-background">
                         <img src={logo} className="App-logo" alt="logo" />
-                        <h2> <em> Create Account </em> </h2>
+                        <h2> <em> Create account </em> </h2>
                         <div >
                         <form onSubmit={handleSubmit} className="form-group">
                                         {/* Conditionally render the error message */}
                                         {error && <div class="input--error">{error}</div>}
 
-                                        <label>Enter Name:
+                                        <label>Enter name:
                                             <input
                                                 type="text"
                                                 name="username"
@@ -109,7 +109,7 @@ const SignupPage = () =>{
                                                 />
                                         </label>
                                         <p></p>
-                                        <label>Enter Password:
+                                        <label>Enter password:
                                             <input
                                                 type="password"
                                                 name="password"
@@ -118,7 +118,7 @@ const SignupPage = () =>{
                                                 />
                                         </label>
                                         <p></p>
-                                        <label>Enter Email:
+                                        <label>Enter email:
                                             <input
                                                 type="text"
                                                 name="email"
@@ -127,7 +127,7 @@ const SignupPage = () =>{
                                                 />
                                         </label>
                                         <p></p>
-                                        <label>Enter Phone Number (XXXXXXXXXX):
+                                        <label>Enter phone number (XXXXXXXXXX):
                                             <input
                                                 type="text"
                                                 name="phone"
