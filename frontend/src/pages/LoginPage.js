@@ -2,6 +2,7 @@ import React from "react";
 import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import EmployeeLogin from './EmployeeLogin';
+import RFIDcreate from './RFIDcreate';
 import HomePage from './homePage';
 import logo from '../TIPSlogo.png';
 import { useHistory } from 'react-router';
@@ -79,11 +80,11 @@ const LoginPage = () => {
                                         <h2> <em> You are now logged in! </em></h2>
 
                                         <div>
-                                            <Link className='button' to="/home"> Go to homepage </Link> 
+                                            <Link className='button' to="/RFIDcreate"> Go to homepage </Link>
                                         </div>
 
-                                    </div>     
-                                </div> 
+                                    </div>
+                                </div>
                             </section>
                         ) : (
                             <div className="App">
@@ -98,7 +99,7 @@ const LoginPage = () => {
                                             <input
                                                 type="text"
                                                 name="username"
-                                                value={customerEmailInput} 
+                                                value={customerEmailInput}
                                                 onChange={handleEmailChange}
                                                 required
                                                 />
@@ -108,7 +109,7 @@ const LoginPage = () => {
                                             <input
                                                 type="password"
                                                 name="password"
-                                                value={customerPasswordInput} 
+                                                value={customerPasswordInput}
                                                 onChange={handlePasswordChange}
                                                 required
                                                 />
@@ -119,10 +120,10 @@ const LoginPage = () => {
                                         </div>
                                     </form>
                                     <div>
-                                        <Link className='button' to="/employee-login"> Employee Login </Link> 
+                                        <Link className='button' to="/employee-login"> Employee Login </Link>
                                     </div>
-                                </div>     
-                            </div> 
+                                </div>
+                            </div>
                         )}
                     </>
                 </Route>
@@ -132,14 +133,14 @@ const LoginPage = () => {
                         <img src={logo} className="App-logo" alt="logo" />
                         <p></p>
                         <div>
-                            <Link className="button" to="/login"> log in </Link> 
+                            <Link className="button" to="/login"> log in </Link>
                             <Link className="button" to="/signup"> sign up </Link>
-                        </div>     
+                        </div>
                         </div>
                     </div>
                 </Route>
-                <Route path="/home">
-                    <HomePage/> 
+                <Route path="/RFIDcreate">
+                    <RFIDcreate/>
                 </Route>
                 <Route path="/employee-login">
                     <EmployeeLogin/>
