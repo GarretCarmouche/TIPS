@@ -1,9 +1,21 @@
 import '../App.css';
 import React, { useState, useEffect } from 'react';
 import globalVariable from "./global";
+import axios from "../axios";
 
+const ADD_ORDER_API_URL = "/addOrder";
+const ORDER_HISTORY_API_URL = "/getCustomerOrderHistory"
 
 const CurrentOrder = ({ orders }) =>{ 
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
+  var [currentOrder, setOrder] = useState();
+  const CUSTOMER_ID = globalVariable.customerID;
+  var [drinkName, setDrinkName] = useState();
+  var [drinkPrice, setDrinkPrice] = useState();
+  var [drinkNameHistory, setDrinkNameHistory] = useState();
+  var [drinkPriceHistory, setDrinkPriceHistory] = useState();
+
   useEffect( () => {
     axios.get(ADD_ORDER_API_URL, {
         params: {
@@ -17,7 +29,7 @@ const CurrentOrder = ({ orders }) =>{
             setError("No Current Order");
         } else {
             setSuccess(true);
-            setPayment(data);
+            setOrder(data);
             currentOrder = data;
         }
     })
@@ -28,14 +40,14 @@ const CurrentOrder = ({ orders }) =>{
   .then(function (response) {
     const obj = JSON.stringify(response.data);
     const newObj = JSON.parse(obj)
-    cardNumber = newObj['DrinkName'];
-    cardName = newObj['DrinkPrice'];
+    drinkName = newObj['DrinkName'];
+    drinkPrice = newObj['DrinkPrice'];
       if(obj == null) {
           setError("No Order Information");
       } else {
           setSuccess(true);
-          setCardNumber(drinkName);
-          setCardName(drinkPrice);
+          setDrinkName(drinkName);
+          setDrinkPrice(drinkPrice);
       }
   })
   .catch(function (error) {
