@@ -119,6 +119,12 @@ input[type=date] {
   vertical-align: middle;
 }
 
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
 /* Home page - purchase history table */
 .purchase-history-table {
   border: 1px solid white;
@@ -223,9 +229,8 @@ input[type=date] {
   text-align: left;
 }
 
-.payment-method-table button {
-  position:relative;
-  right: -40px;
+.payment-method-table th button {
+  text-align: right !important;
 }
 
 .payment-method-table td {
