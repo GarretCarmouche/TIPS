@@ -1,27 +1,17 @@
 import '../App.css';
-import logo from '../TIPSlogo.png';
 import PinInput from 'react-pin-input';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
-import profile from '../profile-img.png';
 import React, { useState, useEffect } from 'react';
-import EmployeeHomePage from './EmployeeHomePage';
-import HomePage from './homePage';
-import CustomerProfile from './CustomerProfile';
-import CheckoutPage from './CheckoutPage';
-import { getCurrentDate } from './utils/getCurrentDate';
-import OrderHistory from './OrderHistory';
-import DisplayOrder from './DisplayOrder';
 import axios from "../axios";
 import globalVariable from "./global";
-
+import LoginPage from './LoginPage';
 
 const PRIMARY_PAYMENT_API_URL = "/getCustomerPrimaryPayment";
 const PAYMENT_TYPE_API_URL = "/getPaymentInfo";
 const ORDER_HISTORY_API_URL = "/getCustomerOrderHistory";
 var primaryPayment;
 var payment;  
-var customerID = 2;
+const CUSTOMER_ID = globalVariable.customerID;
 
 const Checkout = () =>  {    
   const [error, setError] = useState(null);
@@ -36,7 +26,7 @@ const Checkout = () =>  {
   useEffect( () => {
     axios.get(PRIMARY_PAYMENT_API_URL, {
         params: {
-            customerID: customerID
+            customerID: CUSTOMER_ID
         }
     })
     .then(function (response) {
@@ -57,7 +47,7 @@ const Checkout = () =>  {
   useEffect(() =>{
     axios.get(PAYMENT_TYPE_API_URL, {
       params: {
-          customerID: customerID,
+          customerID: CUSTOMER_ID,
           paymentID: primaryPayment
       }
   })
@@ -81,16 +71,15 @@ const Checkout = () =>  {
   useEffect(() =>{
     axios.get(ORDER_HISTORY_API_URL, {
       params: {
-          customerID: customerID,
+          customerID: CUSTOMER_ID,
       }
   })
   .then(function (response) {
     const obj = JSON.stringify(response.data);
-    const newObj = JSON.parse(obj)
+    const newObj = JSON.parse(obj);
     drinkNameHistory = newObj.map((item) => item.DrinkName + "\n");
     const totalPrice = newObj.reduce((total, drink) => total + parseInt(drink.DrinkPrice),0);
     drinkPriceHistory = totalPrice;    
-
       if(obj == null) {
           setError("No order history");
       } else {
@@ -118,13 +107,11 @@ console.log("orderHist " +drinkPriceHistory);
                          <div>Current Order: 
                          <div className="display-linebreak"> 
                             {drinkNameHistory}
-                            {drinkPriceHistory} 
+                            <label>Total Price</label>: {drinkPriceHistory} 
                         </div></div>
                          <div>Payment for:  {cardName}</div>
                          <div>Card Number:  {cardNumber}</div>
-                         
                          <div><Link className="button" to="/employee-pin"> Checkout </Link>
-       
       </div></div>
       <div>
       </div>
@@ -149,9 +136,20 @@ console.log("orderHist " +drinkPriceHistory);
               autoSelect={true}
               regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
             />      
-              <Link className="button" to="/checkout"> Continue to Payment </Link> 
+              <Link className="button" to="/checkout-complete"> Continue to Payment </Link> 
         </div>
       </div>
+    </Route>
+    <Route path = "/checkout-complete">
+    <div className="App">
+        <div className="App-background">
+          <h1>Payment is Complete!</h1>
+          <Link className="button" to="/login"> Back to Login </Link> 
+        </div>
+    </div>
+    </Route>
+    <Route path = "/login">
+      <LoginPage/>
     </Route>
       </Switch>
       </Router>
