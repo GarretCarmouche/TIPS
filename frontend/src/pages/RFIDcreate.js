@@ -5,11 +5,11 @@ import logo from '../TIPSlogo.png';
 import { useState } from 'react';
 import axios from "../axios";
 import globalVariable from "./global";
-import CustomerProfile from "./CustomerProfile"
+import CustomerProfile from "./CustomerProfile";
 const KEY_API_URL = "/keyAdd"; // API endpoint for retrieving customer data from server
 const CUSTOMER_ID = globalVariable.customerID;
 
-const RFIDcreate = () => {
+const RFID_create = () => {
 
     const [error, setError] = useState(null); // State variable for handling errors
     const [success, setSuccess] = useState(null); // State variable for indicating successful customer retrieval
@@ -36,12 +36,12 @@ const RFIDcreate = () => {
                 customerID: CUSTOMER_ID
             }
         })
-            .then(response => {
+            .then(function (response) {
                 console.log(response.data);
                 // Handle response data
                 var data = response.data;
 
-                if(data == false) {
+                if(data === false) {
                     setError( "RFID Tag did NOT link to any customer") ; // Set error state if customer data not found
                 } else {
                     setSuccess( true); // Set success state if customer data found
@@ -56,7 +56,7 @@ const RFIDcreate = () => {
     return (
         <Router>
             <Switch>
-                <Route path="/RFIDcreate">
+                <Route path="/RFID-create">
                     <> {success ? (
                         <section>
                             <div className="App">
@@ -73,7 +73,7 @@ const RFIDcreate = () => {
                         </section>
                     ) : (
                         <div>
-                            <Route path="/RFIDcreate">
+                            <Route path="/RFID-create">
                                 <div className="App">
                                     <div className='App-background'>
                                         <h1> RFID Tag Creator </h1>
@@ -102,4 +102,4 @@ const RFIDcreate = () => {
     );
 };
 
-export default RFIDcreate;
+export default RFID_create;
