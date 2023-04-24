@@ -3,21 +3,14 @@ import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import EmployeeLogin from './EmployeeLogin';
 import RFID_create from './RFIDcreate';
-import HomePage from './homePage';
 import logo from '../TIPSlogo.png';
-import { useHistory } from 'react-router';
 import { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from "../axios";
 import globalVariable from "./global";
 
 const CUSTOMER_API_URL = "/getCustomerLogin";
 
 const LoginPage = () => {
-    const history = useHistory();
-    const [inputs, setInputs] = useState("");
-
-    const userRef = useRef();
     const [customerEmailInput, setEmail] = useState('');
     const [customerPasswordInput, setPassword] = useState('');
     const [error, setError] = useState(null);
@@ -34,12 +27,6 @@ const LoginPage = () => {
     function handlePasswordChange(event) {
         setPassword(event.target.value);
     }
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-      }
 
     function handleSubmit(event) {
         event.preventDefault();
