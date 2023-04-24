@@ -32,7 +32,7 @@ const Checkout = () =>  {
     .then(function (response) {
         var data = parseInt(response.data);
 
-        if(data == -1) {
+        if(data === -1) {
             setError("No Primary Card Selected");
         } else {
             setSuccess(true);
@@ -93,10 +93,6 @@ const Checkout = () =>  {
       console.log(error);
   })
   },[])
-
-console.log("prime" +primaryPayment);
-console.log("payment" + payment);
-console.log("orderHist " +drinkPriceHistory);
     return (
       <Router>
                 <Switch>
