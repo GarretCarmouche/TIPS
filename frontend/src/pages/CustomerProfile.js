@@ -9,7 +9,6 @@ import OrderMenuPage from './OrderMenuPage';
 import { getCurrentDate } from './utils/getCurrentDate';
 import CurrentOrder from './CurrentOrder';
 import CheckoutPage from './CheckoutPage';
-import DisplayOrder from './DisplayOrder';
 import globalVariable from "./global";
 
 
@@ -49,12 +48,8 @@ const CustomerProfile = () =>{
                                 </div>
                                 <div className="purchase-history-table">
                                     <table>
-                                        <CurrentOrder orders={orders} /> 
+                                        <OrderMenuPage orders={orders} /> 
                                     </table>
-                                </div>
-                                <div>
-                                <Link className='button' to="/order-menu"> Add Drinks to Order </Link> 
-                                
                                 </div>
                                 <div><Link className="button" to="/checkout"> Checkout </Link></div>
                                 

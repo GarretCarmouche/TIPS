@@ -1,17 +1,19 @@
 import '../App.css';
 import React, { useState, useEffect } from 'react';
-import DisplayOrder from './DisplayOrder';
 import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import CustomerProfile from './CustomerProfile';
-import OrderHistory from './OrderHistory';
 import globalVariable from "./global";
+import { getCurrentDate } from './utils/getCurrentDate';
 
 
 
 const OrderMenuPage = () =>{ 
     const [order, setOrder] = useState([]);
-    const [orders, setOrders] = useState([]);
     const history = useHistory();
+
+    const addToOrder = (drink) => {
+        setOrder([...order, drink])
+    }
 
     const drinkOptions = [
         { name: 'Margarita', price: 10},
@@ -33,29 +35,25 @@ const OrderMenuPage = () =>{
         { name: 'Water', price: 0},
         { name: 'Soda', price: 3},
     ]
-    function addDrinkToOrder(drink) {
-        const updatedOrder = [...order, drink];
-        setOrder(updatedOrder);
-    }
-    function submitOrder(order) {
-        const totalPrice = order.reduce((total, drink) => total + drink.price, 0);
-        const newOrder = { drinks: order, totalPrice: totalPrice };
-        setOrders([...orders, newOrder]);
-        setOrder([]);
-        history.push('/customer-profile')
-    }
+    
+    const totalPrice = order.reduce((total, drink) => total + drink.price, 0);
     return (
         <div className="App">
             <div className="App-background">
                 <div>
                     {drinkOptions.map((drink, index) => (
-                        <button className='button' key={index} onClick={() => addDrinkToOrder(drink)}>
+                        <button className='button' key={index} onClick={() => addToOrder(drink)}>
                             {drink.name} - ${drink.price}
                         </button>
                     ))}
-                    <DisplayOrder order={order} />
                     <div>
-                        <button className='button' onClick={() =>submitOrder(order)}> Submit Order </button> 
+                        <h2>Current Order:</h2>
+                    <ul>
+                        {order.map((drink) => (
+                            <div>{drink.name} - ${drink.price}</div>
+                        ))}
+                    </ul>
+                    <p>Date: {getCurrentDate()}     Total Price: ${totalPrice}</p>
                     </div>
                 </div>
             </div>
