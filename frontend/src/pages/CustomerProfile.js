@@ -31,21 +31,6 @@ const CustomerProfile = () =>{
                         <div className="App">
                          <div className="App-background">
                                 <img src={logo} className="App-logo" alt="logo" />
-                                <div className="home-header"> 
-                                    <div className="dropdown-wrapper">
-                                        <img src={profile} className="profile-img" alt="profile image" />
-                                        <div className="dropdown-header" onClick={toggleDropdown}>
-                                            <div className="dropdown-header-text"> Your Name </div>
-                                            <div className="dropdown-arrow">{isOpen ? <span>&#9650;</span> : <span>&#9660;</span>}</div>
-                                        </div>
-                                        {isOpen && (
-                                            <div className="dropdown-menu">
-                                                <Link className="dropdown-item-button" to="/employee-home" > manage account </Link> 
-                                                <a class="dropdown-item-button" href="../" target="_self" rel="noopener noreferrer"> log out </a>      
-                                            </div>
-                                        )}
-                                    </div>
-                                </div>
                                 <div className="purchase-history-table">
                                     <table>
                                         <OrderMenuPage orders={orders} /> 
