@@ -13,6 +13,8 @@ import { getCurrentDate } from './utils/getCurrentDate';
 import OrderHistory from './OrderHistory';
 import DisplayOrder from './DisplayOrder';
 import axios from "../axios";
+import globalVariable from "./global";
+
 
 const PRIMARY_PAYMENT_API_URL = "/getCustomerPrimaryPayment";
 const PAYMENT_TYPE_API_URL = "/getPaymentInfo";

@@ -4,6 +4,8 @@ import DisplayOrder from './DisplayOrder';
 import { BrowserRouter as Router, Route, Switch, Link, useHistory } from 'react-router-dom';
 import CustomerProfile from './CustomerProfile';
 import OrderHistory from './OrderHistory';
+import globalVariable from "./global";
+
 
 
 const OrderMenuPage = () =>{ 

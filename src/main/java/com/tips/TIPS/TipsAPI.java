@@ -666,7 +666,6 @@ public class TipsAPI {
      * Adds an order to the database.
      * 
      * @param customerID The ID of the customer associated with the order.
-     * @param orderID The ID of the order.
      * @param drinkName The name of the drink ordered.
      * @return true if the insertion was successful, false otherwise.
      */

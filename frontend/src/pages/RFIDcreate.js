@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Link, Route } from "react-router-dom";
 import axios from "../axios";
 import { useState } from 'react';
+import globalVariable from "./global";
+
 
 const keyAdd_API_URL = "/keyAdd";
 
