@@ -34,12 +34,15 @@ const SignupPage = () =>{
     function handlePasswordChange(event) {
         setPassword(event.target.value);
     }
+
     function handleEmailChange(event) {
         setEmail(event.target.value);
     }
+
     function handlePhoneChange(event) {
         setPhone(event.target.value);
     }
+    
     function handleSubmit(event) {
         event.preventDefault();
         // console.log("Name:", customerNameInput);

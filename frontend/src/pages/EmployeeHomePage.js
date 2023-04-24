@@ -18,18 +18,6 @@ const EmployeeHomePage = () =>{
                         </div>
                     </div>
                 </Route>
-                <Route exact path="/">
-                    <div className="App">
-                        <div className="App-background">
-                            <img src={logo} className="App-logo" alt="logo" />
-                            <p></p>
-                            <div>
-                                <Link className="button" to="/login"> log in </Link>
-                                <Link className="button" to="/signup"> sign up </Link>
-                            </div>
-                        </div>
-                    </div>
-                </Route>
                 <Route path="/customer-profile">
                     <KeyboardInput/>
                 </Route>
