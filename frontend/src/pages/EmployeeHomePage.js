@@ -2,11 +2,7 @@ import React from 'react';
 import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logo from '../TIPSlogo.png';
-import CustomerProfile from './CustomerProfile';
-import KeyboardInput from "./RFIDcreate";
-import KeyboardInput2 from "./RFIDread";
-import globalVariable from "./global";
-
+import KeyboardInput from "./RFIDread";
 
 const EmployeeHomePage = () =>{
     return (
@@ -18,7 +14,6 @@ const EmployeeHomePage = () =>{
                             <h1> RFID Tag Identifier </h1>
                             <div>
                                 <Link className='button' to="/RFIDread"> Tag Reader </Link>
-                                <Link className='button' to="/RFIDcreate"> Tag Creator </Link>
                             </div>
                         </div>
                     </div>
@@ -39,7 +34,7 @@ const EmployeeHomePage = () =>{
                     <KeyboardInput/>
                 </Route>
                 <Route path="/RFIDread">
-                    <KeyboardInput2/>
+                    <KeyboardInput/>
                 </Route>
             </Switch>
         </Router>

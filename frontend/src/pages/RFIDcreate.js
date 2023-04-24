@@ -3,6 +3,8 @@ import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import logo from '../TIPSlogo.png';
 import { useState } from 'react';
+import axios from "../axios";
+import CustomerProfile from "./CustomerProfile"
 const READER_API_URL = "/getCustomerFromCardID"; // API endpoint for retrieving customer data from server
 const CUSTOMER_ID = 6969;
 
