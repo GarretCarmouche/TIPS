@@ -259,3 +259,7 @@ input[type=number]::-webkit-outer-spin-button {
   display: flex;
   align-items: center;
 }
+
+.display-linebreak {
+  white-space: pre-line;
+}

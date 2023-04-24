@@ -14,8 +14,8 @@ import java.util.HashMap;
 public class TipsController {
 
     @GetMapping("/barAdd")
-    boolean barAdd(String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
-        return TipsAPI.barAdd(bartenderID, bartenderName, bartenderPhone, bartenderEmail, bartenderPass, bartenderPin);
+    boolean barAdd(String employeeName, String employeePhone, String employeeEmail, String employeePassword, String employeePin){
+        return TipsAPI.barAdd(employeeName, employeePhone, employeeEmail, employeePassword, employeePin);
     }
 
     @GetMapping("/customerAdd")
@@ -29,8 +29,8 @@ public class TipsController {
     }
 
     @GetMapping("/orderAdd")
-    boolean orderAdd(String customerID, String drinkName){
-        return TipsAPI.orderAdd(customerID, drinkName);
+    boolean orderAdd(String customerID, String drinkName, double drinkPrice){
+        return TipsAPI.orderAdd(customerID, drinkName, drinkPrice);
     }
 
     @GetMapping("/paymentAdd")
@@ -111,5 +111,10 @@ public class TipsController {
     @GetMapping("/getDrinkPrice")
     double getDrinkPrice(String drinkName){
         return TipsAPI.getDrinkPrice(drinkName);
+    }
+
+    @GetMapping("/getDrinkNames")
+    ArrayList<String> getDrinkNames(){
+        return TipsAPI.getDrinkNames();
     }
 }

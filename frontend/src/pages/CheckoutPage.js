@@ -1,38 +1,32 @@
 import '../App.css';
-import logo from '../TIPSlogo.png';
 import PinInput from 'react-pin-input';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
-import { useHistory } from 'react-router';
-import profile from '../profile-img.png';
 import React, { useState, useEffect } from 'react';
-import EmployeeHomePage from './EmployeeHomePage';
-import HomePage from './homePage';
-import CustomerProfile from './CustomerProfile';
-import CheckoutPage from './CheckoutPage';
-import { getCurrentDate } from './utils/getCurrentDate';
-import OrderHistory from './OrderHistory';
-import DisplayOrder from './DisplayOrder';
 import axios from "../axios";
 import globalVariable from "./global";
-
+import LoginPage from './LoginPage';
 
 const PRIMARY_PAYMENT_API_URL = "/getCustomerPrimaryPayment";
 const PAYMENT_TYPE_API_URL = "/getPaymentInfo";
-var customerID = 69;
+const ORDER_HISTORY_API_URL = "/getCustomerOrderHistory";
 var primaryPayment;
-var payment;
+var payment;  
+const CUSTOMER_ID = globalVariable.customerID;
+
 const Checkout = () =>  {    
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   var [primaryPayment, setPayment] = useState();
   var [cardNumber, setCardNumber] = useState();
   var [cardName, setCardName] = useState();
+  var [drinkNameHistory, setDrinkNameHistory] = useState();
+  var [drinkPriceHistory, setDrinkPriceHistory] = useState();
 
 
   useEffect( () => {
     axios.get(PRIMARY_PAYMENT_API_URL, {
         params: {
-            customerID: customerID
+            customerID: CUSTOMER_ID
         }
     })
     .then(function (response) {
@@ -40,12 +34,10 @@ const Checkout = () =>  {
 
         if(data == -1) {
             setError("No Primary Card Selected");
-            console.log(primaryPayment);
         } else {
             setSuccess(true);
             setPayment(data);
             primaryPayment = data;
-            console.log(primaryPayment);
         }
     })
     .catch(function (error) {
@@ -55,7 +47,7 @@ const Checkout = () =>  {
   useEffect(() =>{
     axios.get(PAYMENT_TYPE_API_URL, {
       params: {
-          customerID: customerID,
+          customerID: CUSTOMER_ID,
           paymentID: primaryPayment
       }
   })
@@ -75,10 +67,36 @@ const Checkout = () =>  {
   .catch(function (error) {
       console.log(error);
   })
-  
-})
+  })
+  useEffect(() =>{
+    axios.get(ORDER_HISTORY_API_URL, {
+      params: {
+          customerID: CUSTOMER_ID,
+      }
+  })
+  .then(function (response) {
+    const obj = JSON.stringify(response.data);
+    const newObj = JSON.parse(obj);
+    drinkNameHistory = newObj.map((item) => item.DrinkName + "\n");
+    const totalPrice = newObj.reduce((total, drink) => total + parseInt(drink.DrinkPrice),0);
+    drinkPriceHistory = totalPrice;    
+      if(obj == null) {
+          setError("No order history");
+      } else {
+          setSuccess(true);
+          setDrinkNameHistory(drinkNameHistory);
+          setDrinkPriceHistory(drinkPriceHistory);
+      }
+
+  })
+  .catch(function (error) {
+      console.log(error);
+  })
+  },[])
+
 console.log("prime" +primaryPayment);
-console.log("payment" + payment)
+console.log("payment" + payment);
+console.log("orderHist " +drinkPriceHistory);
     return (
       <Router>
                 <Switch>
@@ -86,12 +104,14 @@ console.log("payment" + payment)
                         <div className="App">
                          <div className="App-background">
                          <h1>Checkout</h1>
-                         <div>Current Order: </div>
+                         <div>Current Order: 
+                         <div className="display-linebreak"> 
+                            {drinkNameHistory}
+                            <label>Total Price</label>: {drinkPriceHistory} 
+                        </div></div>
                          <div>Payment for:  {cardName}</div>
                          <div>Card Number:  {cardNumber}</div>
-                         
                          <div><Link className="button" to="/employee-pin"> Checkout </Link>
-       
       </div></div>
       <div>
       </div>
@@ -116,9 +136,20 @@ console.log("payment" + payment)
               autoSelect={true}
               regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
             />      
-              <Link className="button" to="/checkout"> Continue to Payment </Link> 
+              <Link className="button" to="/checkout-complete"> Continue to Payment </Link> 
         </div>
       </div>
+    </Route>
+    <Route path = "/checkout-complete">
+    <div className="App">
+        <div className="App-background">
+          <h1>Payment is Complete!</h1>
+          <Link className="button" to="/login"> Back to Login </Link> 
+        </div>
+    </div>
+    </Route>
+    <Route path = "/login">
+      <LoginPage/>
     </Route>
       </Switch>
       </Router>

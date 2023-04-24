@@ -2,21 +2,15 @@ import React from "react";
 import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import EmployeeLogin from './EmployeeLogin';
-import HomePage from './homePage';
+import RFID_create from './RFIDcreate';
 import logo from '../TIPSlogo.png';
-import { useHistory } from 'react-router';
 import { useState, useEffect, useRef } from 'react';
-import { Redirect } from 'react-router-dom';
 import axios from "../axios";
 import globalVariable from "./global";
 
 const CUSTOMER_API_URL = "/getCustomerLogin";
 
 const LoginPage = () => {
-    const history = useHistory();
-    const [inputs, setInputs] = useState("");
-
-    const userRef = useRef();
     const [customerEmailInput, setEmail] = useState('');
     const [customerPasswordInput, setPassword] = useState('');
     const [error, setError] = useState(null);
@@ -33,12 +27,6 @@ const LoginPage = () => {
     function handlePasswordChange(event) {
         setPassword(event.target.value);
     }
-
-    const handleChange = (event) => {
-        const name = event.target.name;
-        const value = event.target.value;
-        setInputs(values => ({...values, [name]: value}))
-      }
 
     function handleSubmit(event) {
         event.preventDefault();
@@ -79,11 +67,11 @@ const LoginPage = () => {
                                         <h2> <em> You are now logged in! </em></h2>
 
                                         <div>
-                                            <Link className='button' to="/home"> Go to homepage </Link> 
+                                            <Link className='button' to="/RFID-create"> Create your Tag </Link>
                                         </div>
 
-                                    </div>     
-                                </div> 
+                                    </div>
+                                </div>
                             </section>
                         ) : (
                             <div className="App">
@@ -98,7 +86,7 @@ const LoginPage = () => {
                                             <input
                                                 type="text"
                                                 name="username"
-                                                value={customerEmailInput} 
+                                                value={customerEmailInput}
                                                 onChange={handleEmailChange}
                                                 required
                                                 />
@@ -108,7 +96,7 @@ const LoginPage = () => {
                                             <input
                                                 type="password"
                                                 name="password"
-                                                value={customerPasswordInput} 
+                                                value={customerPasswordInput}
                                                 onChange={handlePasswordChange}
                                                 required
                                                 />
@@ -119,10 +107,10 @@ const LoginPage = () => {
                                         </div>
                                     </form>
                                     <div>
-                                        <Link className='button' to="/employee-login"> Employee Login </Link> 
+                                        <Link className='button' to="/employee-login"> Employee Login </Link>
                                     </div>
-                                </div>     
-                            </div> 
+                                </div>
+                            </div>
                         )}
                     </>
                 </Route>
@@ -132,14 +120,14 @@ const LoginPage = () => {
                         <img src={logo} className="App-logo" alt="logo" />
                         <p></p>
                         <div>
-                            <Link className="button" to="/login"> log in </Link> 
+                            <Link className="button" to="/login"> log in </Link>
                             <Link className="button" to="/signup"> sign up </Link>
-                        </div>     
+                        </div>
                         </div>
                     </div>
                 </Route>
-                <Route path="/home">
-                    <HomePage/> 
+                <Route path="/RFID-create">
+                    <RFID_create/>
                 </Route>
                 <Route path="/employee-login">
                     <EmployeeLogin/>

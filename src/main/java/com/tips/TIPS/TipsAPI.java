@@ -14,6 +14,39 @@ public class TipsAPI {
 
 
     /**
+     * Retrieves a list of drink names from a database.
+     *
+     * @return An ArrayList of Strings containing the names of drinks from the database.
+     */
+    public static ArrayList<String> getDrinkNames(){
+        ArrayList<String> drinks = new ArrayList<String>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from drinks";
+                PreparedStatement st = con.prepareStatement(query);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return null;
+                }
+                while(rs.next()){
+                    drinks.add(rs.getString("drinkName"));
+                }
+                return drinks;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Retrieves the price of a drink from the database.
      *
      * @param drinkName The name of the drink to retrieve the price for.
@@ -364,6 +397,7 @@ public class TipsAPI {
                     HashMap<String, String> order = new HashMap<String, String>();
                     order.put("OrderID",rs.getString("OrderID"));
                     order.put("DrinkName",rs.getString("drinkName"));
+                    order.put("DrinkPrice",rs.getString("drinkPrice"));
                     orders.add(order);
                 }
                 return orders;
@@ -543,27 +577,25 @@ public class TipsAPI {
     /**
      * Adds a bartender to the database.
      * 
-     * @param bartenderID The ID of the bartender.
-     * @param bartenderName The name of the bartender.
-     * @param bartenderPhone The phone number of the bartender.
-     * @param bartenderEmail The email address of the bartender.
-     * @param bartenderPass The password of the bartender.
-     * @param bartenderPin The PIN of the bartender.
+     * @param employeeName The name of the bartender.
+     * @param employeePhone The phone number of the bartender.
+     * @param employeeEmail The email address of the bartender.
+     * @param employeePassword The password of the bartender.
+     * @param employeePin The PIN of the bartender.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean barAdd(String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
+    public static boolean barAdd(String employeeName, String employeePhone, String employeeEmail, String employeePassword, String employeePin){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO bartender (bartenderID, bartenderName, bartenderPhone, bartenderEmail, bartenderPass, bartenderPin) VALUE (?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO employee (employeeName, employeePhone, employeeEmail, employeePassword, employeePin) VALUE (?, ?, ?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
-                st.setString(1, bartenderID);
-                st.setString(2, bartenderName);
-                st.setString(3, bartenderPhone);
-                st.setString(4, bartenderEmail);
-                st.setString(5, bartenderPass);
-                st.setString(6, bartenderPin);
+                st.setString(1, employeeName);
+                st.setString(2, employeePhone);
+                st.setString(3, employeeEmail);
+                st.setString(4, employeePassword);
+                st.setString(5, employeePin);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     tra = 1;
@@ -669,15 +701,16 @@ public class TipsAPI {
      * @param drinkName The name of the drink ordered.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean orderAdd(String customerID, String drinkName){
+    public static boolean orderAdd(String customerID, String drinkName, double drinkPrice){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO orders (customerID, drinkName) VALUE (?, ?)";
+                String query = "INSERT INTO orders (customerID, drinkName, drinkPrice) VALUE (?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
                 st.setString(1, customerID);
                 st.setString(2, drinkName);
+                st.setDouble(2, drinkPrice);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     System.out.println(insRows + "Updated Succesfully");
