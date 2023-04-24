@@ -14,6 +14,39 @@ public class TipsAPI {
 
 
     /**
+     * Retrieves a list of drink names from a database.
+     *
+     * @return An ArrayList of Strings containing the names of drinks from the database.
+     */
+    public static ArrayList<String> getDrinkNames(){
+        ArrayList<String> drinks = new ArrayList<String>();
+        try{
+            Class.forName("com.mysql.cj.jdbc.Driver");
+            try(Connection con = DriverManager.getConnection(url, user, pass)){
+                String query = "select * from drinks";
+                PreparedStatement st = con.prepareStatement(query);
+                ResultSet rs = st.executeQuery();
+                if (!rs.isBeforeFirst()) {
+                    System.out.println("No data found");
+                    return null;
+                }
+                while(rs.next()){
+                    drinks.add(rs.getString("drinkName"));
+                }
+                return drinks;
+            }
+            catch(SQLException ex) {
+                ex.printStackTrace();
+                return null;
+            }
+        }
+        catch (ClassNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
      * Retrieves the price of a drink from the database.
      *
      * @param drinkName The name of the drink to retrieve the price for.
@@ -666,7 +699,6 @@ public class TipsAPI {
      * Adds an order to the database.
      * 
      * @param customerID The ID of the customer associated with the order.
-     * @param orderID The ID of the order.
      * @param drinkName The name of the drink ordered.
      * @return true if the insertion was successful, false otherwise.
      */

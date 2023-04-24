@@ -4,6 +4,8 @@ import logo from '../TIPSlogo.png';
 import profile from '../profile-img.png';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import { useHistory } from 'react-router-dom';
+import globalVariable from "./global";
+
 
 import HomePage from './homePage';
 

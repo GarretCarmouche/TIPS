@@ -9,6 +9,7 @@ import { useHistory } from 'react-router';
 import { useState, useEffect, useRef } from 'react';
 import { Redirect } from 'react-router-dom';
 import axios from "../axios";
+import globalVariable from "./global";
 
 const CUSTOMER_API_URL = "/getCustomerLogin";
 
@@ -58,6 +59,8 @@ const LoginPage = () => {
                 setError("Incorrect Email or Password!");
             } else {
                 setSuccess(true);
+                globalVariable.customerID = data;
+                console.log(globalVariable.customerID);
             }
         })
         .catch(function (error) {

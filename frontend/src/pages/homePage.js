@@ -5,9 +5,10 @@ import { useHistory } from 'react-router-dom';
 import AccountPage from './accountPage';
 import logo from '../TIPSlogo.png';
 import profile from '../profile-img.png';
+import LoginPage from './LoginPage';
+import globalVariable from "./global";
 
 const HomePage = () =>{
-    
     const [items, setItems] = useState([
         {date: 'April 7, 2023', item: 'Frozen Drink', price: '$10.00'},
         {date: 'April 6, 2023', item: 'Long Island Iced Tea', price: '$14.00'},
@@ -48,6 +49,7 @@ const HomePage = () =>{
                     <div className="App">
                      <div className="App-background">
                             <img src={logo} className="App-logo" alt="logo" />
+                            <h2> CustomerID = {globalVariable.customerID}</h2>
                             <div className="home-header"> 
                                 <div className="dropdown-wrapper">
                                     <img src={profile} className="profile-img" alt="profile image" />
@@ -65,6 +67,7 @@ const HomePage = () =>{
                             </div>
                             <div className="purchase-history-table">
                                 <h2> Purchase History </h2>
+                                
                                 <table>
                                     <thead>
                                         <tr>

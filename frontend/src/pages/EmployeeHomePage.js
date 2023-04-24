@@ -5,6 +5,8 @@ import logo from '../TIPSlogo.png';
 import CustomerProfile from './CustomerProfile';
 import KeyboardInput from "./RFIDcreate";
 import KeyboardInput2 from "./RFIDread";
+import globalVariable from "./global";
+
 
 const EmployeeHomePage = () =>{
     return (

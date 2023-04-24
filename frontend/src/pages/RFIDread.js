@@ -5,6 +5,8 @@ import logo from '../TIPSlogo.png';
 import { useState } from 'react';
 import axios from "../axios";
 import CustomerProfile from "./CustomerProfile";
+import globalVariable from "./global";
+
 
 const READER_API_URL = "/getCustomerFromCardID"; // API endpoint for retrieving customer data from server
 
