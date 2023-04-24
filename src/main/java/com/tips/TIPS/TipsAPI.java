@@ -397,6 +397,7 @@ public class TipsAPI {
                     HashMap<String, String> order = new HashMap<String, String>();
                     order.put("OrderID",rs.getString("OrderID"));
                     order.put("DrinkName",rs.getString("drinkName"));
+                    order.put("DrinkPrice",rs.getString("drinkPrice"));
                     orders.add(order);
                 }
                 return orders;

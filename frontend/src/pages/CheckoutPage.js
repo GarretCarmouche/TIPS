@@ -18,15 +18,19 @@ import globalVariable from "./global";
 
 const PRIMARY_PAYMENT_API_URL = "/getCustomerPrimaryPayment";
 const PAYMENT_TYPE_API_URL = "/getPaymentInfo";
-var customerID = 69;
+const ORDER_HISTORY_API_URL = "/getCustomerOrderHistory";
 var primaryPayment;
-var payment;
+var payment;  
+var customerID = 2;
+
 const Checkout = () =>  {    
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   var [primaryPayment, setPayment] = useState();
   var [cardNumber, setCardNumber] = useState();
   var [cardName, setCardName] = useState();
+  var [drinkNameHistory, setDrinkNameHistory] = useState();
+  var [drinkPriceHistory, setDrinkPriceHistory] = useState();
 
 
   useEffect( () => {
@@ -40,12 +44,10 @@ const Checkout = () =>  {
 
         if(data == -1) {
             setError("No Primary Card Selected");
-            console.log(primaryPayment);
         } else {
             setSuccess(true);
             setPayment(data);
             primaryPayment = data;
-            console.log(primaryPayment);
         }
     })
     .catch(function (error) {
@@ -75,10 +77,37 @@ const Checkout = () =>  {
   .catch(function (error) {
       console.log(error);
   })
-  
-})
+  })
+  useEffect(() =>{
+    axios.get(ORDER_HISTORY_API_URL, {
+      params: {
+          customerID: customerID,
+      }
+  })
+  .then(function (response) {
+    const obj = JSON.stringify(response.data);
+    const newObj = JSON.parse(obj)
+    drinkNameHistory = newObj.map((item) => item.DrinkName + "\n");
+    const totalPrice = newObj.reduce((total, drink) => total + parseInt(drink.DrinkPrice),0);
+    drinkPriceHistory = totalPrice;    
+
+      if(obj == null) {
+          setError("No order history");
+      } else {
+          setSuccess(true);
+          setDrinkNameHistory(drinkNameHistory);
+          setDrinkPriceHistory(drinkPriceHistory);
+      }
+
+  })
+  .catch(function (error) {
+      console.log(error);
+  })
+  },[])
+
 console.log("prime" +primaryPayment);
-console.log("payment" + payment)
+console.log("payment" + payment);
+console.log("orderHist " +drinkPriceHistory);
     return (
       <Router>
                 <Switch>
@@ -86,7 +115,11 @@ console.log("payment" + payment)
                         <div className="App">
                          <div className="App-background">
                          <h1>Checkout</h1>
-                         <div>Current Order: </div>
+                         <div>Current Order: 
+                         <div className="display-linebreak"> 
+                            {drinkNameHistory}
+                            {drinkPriceHistory} 
+                        </div></div>
                          <div>Payment for:  {cardName}</div>
                          <div>Card Number:  {cardNumber}</div>
                          
