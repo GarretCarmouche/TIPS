@@ -7,7 +7,6 @@ import axios from "../axios";
 import CustomerProfile from "./CustomerProfile";
 import globalVariable from "./global";
 
-
 const READER_API_URL = "/getCustomerFromCardID"; // API endpoint for retrieving customer data from server
 
 const RFIDread = () => {
@@ -59,41 +58,41 @@ const RFIDread = () => {
         <Router>
             <Switch>
                 <Route path="/RFIDread">
-                    <> {success ? (
-                        <section>
-                            <div className="App">
-                                <div className="App-background">
-                                    <img src={logo} className="App-logo" alt="logo" />
-                                    <h2> <em> Customer Found! </em></h2>
-
-                                    <div>
-                                        <Link className='button' to="/customer-profile"> Go to Customer Profile </Link>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </section>
-                    ) : (
-                        <div>
-                            <Route path="/RFIDread">
+                    <>
+                        {success ? (
+                            <section>
                                 <div className="App">
-                                    <div className='App-background'>
-                                        <h1> RFID Tag Identifier </h1>
-                                        <form onSubmit={handleSave}>
-                                            <input
-                                                type="text"
-                                                value={inputValue}
-                                                onChange={handleInputChange}
-                                            />
-                                            <p>Input value: {inputValue}</p>
-                                            {error && <p>{error}</p>}
-                                            <button className='button' type="submit">Save</button>
-                                        </form>
+                                    <div className="App-background">
+                                        <img src={logo} className="App-logo" alt="logo" />
+                                        <h2> <em> Customer Found! </em></h2>
+
+                                        <div>
+                                            <Link className='button' to="/customer-profile"> Go to Customer Profile </Link>
+                                        </div>
                                     </div>
                                 </div>
-                            </Route>
-                        </div>
-                    )}
+                            </section>
+                        ) : (
+                            <div>
+                                <Route path="/RFIDread">
+                                    <div className="App">
+                                        <div className='App-background'>
+                                            <h1> RFID Tag Identifier </h1>
+                                            <form onSubmit={handleSave}>
+                                                <input autoFocus={true}
+                                                       type="text"
+                                                       value={inputValue}
+                                                       onChange={handleInputChange}
+                                                />
+                                                <p>Input value: {inputValue}</p>
+                                                {error && <p>{error}</p>}
+                                                <button className='button' type="submit">Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </Route>
+                            </div>
+                        )}
                     </>
                 </Route>
                 <Route path="/customer-profile">

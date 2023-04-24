@@ -6,11 +6,10 @@ import { useState } from 'react';
 import axios from "../axios";
 import globalVariable from "./global";
 import CustomerProfile from "./CustomerProfile";
+
 const KEY_API_URL = "/keyAdd"; // API endpoint for retrieving customer data from server
-const CUSTOMER_ID = globalVariable.customerID;
 
 const RFID_create = () => {
-
     const [error, setError] = useState(null); // State variable for handling errors
     const [success, setSuccess] = useState(null); // State variable for indicating successful customer retrieval
     const [inputValue, setInput] = useState(''); // State variable for storing input value
@@ -33,7 +32,7 @@ const RFID_create = () => {
         axios.get(KEY_API_URL, {
             params: {
                 cardID: inputValue,
-                customerID: CUSTOMER_ID
+                customerID: globalVariable.customerID
             }
         })
             .then(function (response) {
@@ -42,9 +41,10 @@ const RFID_create = () => {
                 var data = response.data;
 
                 if(data === false) {
-                    setError( "RFID Tag did NOT link to any customer") ; // Set error state if customer data not found
+                    setError( "RFID Tag did NOT link to any customer" ); // Set error state if customer data not found
+                    setInput("");
                 } else {
-                    setSuccess( true); // Set success state if customer data found
+                    setSuccess(true); // Set success state if customer data found
                 }
             })
             .catch(error => {
@@ -57,41 +57,44 @@ const RFID_create = () => {
         <Router>
             <Switch>
                 <Route path="/RFID-create">
-                    <> {success ? (
-                        <section>
-                            <div className="App">
-                                <div className="App-background">
-                                    <img src={logo} className="App-logo" alt="logo" />
-                                    <h2> <em> Customer ID successfully linked to RFID Tag! </em></h2>
-
-                                    <div>
-                                        <Link className='button' to="/customer-profile"> Go to Customer Profile </Link>
-                                    </div>
-
-                                </div>
-                            </div>
-                        </section>
-                    ) : (
-                        <div>
-                            <Route path="/RFID-create">
+                    <>
+                        {success ? (
+                            // Render success message and link to customer profile if success state is true
+                            <section>
                                 <div className="App">
-                                    <div className='App-background'>
-                                        <h1> RFID Tag Creator </h1>
-                                        <form onSubmit={handleSave}>
-                                            <input
-                                                type="text"
-                                                value={inputValue}
-                                                onChange={handleInputChange}
-                                            />
-                                            <p>Scan RFID Tag: {inputValue}</p>
-                                            {error && <p>{error}</p>}
-                                            <button className='button' type="submit">Save</button>
-                                        </form>
+                                    <div className="App-background">
+                                        <img src={logo} className="App-logo" alt="logo" />
+                                        <h2> <em> Customer ID successfully linked to RFID Tag! </em></h2>
+
+                                        <div>
+                                            <Link className='button' to="/customer-profile"> Go to Customer Profile </Link>
+                                        </div>
+
                                     </div>
                                 </div>
-                            </Route>
-                        </div>
-                    )}
+                            </section>
+                        ) : (
+                            // Render RFID Tag creator form if success state is false
+                            <div>
+                                <Route path="/RFID-create">
+                                    <div className="App">
+                                        <div className='App-background'>
+                                            <h1> RFID Tag Creator </h1>
+                                            <form onSubmit={handleSave}>
+                                                <input autoFocus={true}
+                                                       type="text"
+                                                       value={inputValue}
+                                                       onChange={handleInputChange}
+                                                />
+                                                <p>Scan RFID Tag: {inputValue}</p>
+                                                {error && <p>{error}</p>}
+                                                <button className='button' type="submit">Save</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </Route>
+                            </div>
+                        )}
                     </>
                 </Route>
                 <Route path="/customer-profile">
