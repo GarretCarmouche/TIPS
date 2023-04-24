@@ -4,6 +4,8 @@ import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import SignupPage2 from './signupPage2';
 import logo from '../TIPSlogo.png';
 import { useHistory } from 'react-router';
+import globalVariable from "./global";
+
 
 const SignupPage = () =>{
     const history = useHistory();

@@ -2,6 +2,8 @@ import '../App.css';
 import React, { useState, useEffect } from 'react';
 import { getCurrentDate } from './utils/getCurrentDate';
 import OrderMenuPage from './OrderMenuPage';
+import globalVariable from "./global";
+
 
 const DisplayOrder = ({order}) =>{ 
     const totalPrice = order.reduce((total, drink) => total + drink.price, 0);
