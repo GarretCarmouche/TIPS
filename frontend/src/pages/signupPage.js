@@ -7,7 +7,7 @@ import { useHistory } from 'react-router';
 import globalVariable from "./global";
 import axios from "../axios";
 import { useState, useEffect } from 'react';
-
+import App from '../App';
 
 const CUSTOMER_ADD_API_URL = "/customerAdd";
 
@@ -78,12 +78,11 @@ const SignupPage = () =>{
                                 <div className="App">
                                     <div className="App-background">
                                         <img src={logo} className="App-logo" alt="logo" />
-                                        <h2> <em> You are now logged in! </em></h2>
+                                        <h2> <em> Your Account has been created successfully! </em></h2>
 
                                         <div>
-                                            <Link className='button' to="/home"> Go to homepage </Link>
+                                            <Link className='button' to="/"> Go back. </Link>
                                         </div>
-
                                     </div>
                                 </div>
                             </section>
@@ -146,18 +145,11 @@ const SignupPage = () =>{
                 </div>
                 )}
             </Route>
-                <Route exact path="/">
-                    <div className="App">
-                        <div className="App-background">
-                        <img src={logo} className="App-logo" alt="logo" />
-                        <p></p>
-                        <div>
-                            <Link className="button" to="/login"> log in </Link>
-                            <Link className="button" to="/signup"> sign up </Link>
-                        </div>
-                        </div>
-                    </div>
-                </Route>
+
+            <Route path="/">
+                <App>
+                </App>
+            </Route>
                 <Route path="/signup2">
                     <SignupPage2 />
                 </Route>
