@@ -13,7 +13,7 @@ const EmployeeHomePage = () =>{
                         <div className='App-background'>
                             <h1> RFID Tag Identifier </h1>
                             <div>
-                                <Link className='button' to="/RFIDread"> Tag Reader </Link>
+                                <Link className='button' to="/RFIDread"> Scan RFID Tag </Link>
                             </div>
                         </div>
                     </div>

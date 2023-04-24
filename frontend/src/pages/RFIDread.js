@@ -43,8 +43,10 @@ const RFIDread = () => {
 
                 if(data == -1) {
                     setError( "RFID Tag is not linked to any customer") ; // Set error state if customer data not found
+                    setInput('');
                 } else {
                     setSuccess( true); // Set success state if customer data found
+                    globalVariable.customerID = data;
                 }
             })
             .catch(error => {

@@ -2,7 +2,7 @@ import React from "react";
 import '../App.css';
 import { BrowserRouter as Router, Route, Switch, Link } from 'react-router-dom';
 import EmployeeLogin from './EmployeeLogin';
-import RFIDcreate from './RFIDcreate';
+import RFID_create from './RFIDcreate';
 import HomePage from './homePage';
 import logo from '../TIPSlogo.png';
 import { useHistory } from 'react-router';
@@ -80,7 +80,7 @@ const LoginPage = () => {
                                         <h2> <em> You are now logged in! </em></h2>
 
                                         <div>
-                                            <Link className='button' to="/RFIDcreate"> Create your Tag </Link>
+                                            <Link className='button' to="/RFID-create"> Create your Tag </Link>
                                         </div>
 
                                     </div>
@@ -139,8 +139,8 @@ const LoginPage = () => {
                         </div>
                     </div>
                 </Route>
-                <Route path="/RFIDcreate">
-                    <RFIDcreate/>
+                <Route path="/RFID-create">
+                    <RFID_create/>
                 </Route>
                 <Route path="/employee-login">
                     <EmployeeLogin/>

@@ -70,7 +70,7 @@ const EmployeeLogin = () => {
                                 <h2> <em> You are now logged in! </em></h2>
 
                                 <div>
-                                    <Link className='button' to="/employee-home"> Go to homepage </Link> 
+                                    <Link className='button' to="/employee-home"> Scan Customer RFID Tag </Link>
                                 </div>
 
                             </div>     
