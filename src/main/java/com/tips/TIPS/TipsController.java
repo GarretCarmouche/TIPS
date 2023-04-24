@@ -14,8 +14,8 @@ import java.util.HashMap;
 public class TipsController {
 
     @GetMapping("/barAdd")
-    boolean barAdd(String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
-        return TipsAPI.barAdd(bartenderID, bartenderName, bartenderPhone, bartenderEmail, bartenderPass, bartenderPin);
+    boolean barAdd(String employeeName, String employeePhone, String employeeEmail, String employeePassword, String employeePin){
+        return TipsAPI.barAdd(employeeName, employeePhone, employeeEmail, employeePassword, employeePin);
     }
 
     @GetMapping("/customerAdd")

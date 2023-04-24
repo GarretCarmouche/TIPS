@@ -577,27 +577,25 @@ public class TipsAPI {
     /**
      * Adds a bartender to the database.
      * 
-     * @param bartenderID The ID of the bartender.
-     * @param bartenderName The name of the bartender.
-     * @param bartenderPhone The phone number of the bartender.
-     * @param bartenderEmail The email address of the bartender.
-     * @param bartenderPass The password of the bartender.
-     * @param bartenderPin The PIN of the bartender.
+     * @param employeeName The name of the bartender.
+     * @param employeePhone The phone number of the bartender.
+     * @param employeeEmail The email address of the bartender.
+     * @param employeePassword The password of the bartender.
+     * @param employeePin The PIN of the bartender.
      * @return true if the insertion was successful, false otherwise.
      */
-    public static boolean barAdd(String bartenderID, String bartenderName, String bartenderPhone, String bartenderEmail, String bartenderPass, String bartenderPin){
+    public static boolean barAdd(String employeeName, String employeePhone, String employeeEmail, String employeePassword, String employeePin){
         int tra = 0;
         try{
             Class.forName("com.mysql.cj.jdbc.Driver");
             try(Connection con = DriverManager.getConnection(url, user, pass)){
-                String query = "INSERT INTO bartender (bartenderID, bartenderName, bartenderPhone, bartenderEmail, bartenderPass, bartenderPin) VALUE (?, ?, ?, ?, ?, ?)";
+                String query = "INSERT INTO employee (employeeName, employeePhone, employeeEmail, employeePassword, employeePin) VALUE (?, ?, ?, ?, ?)";
                 PreparedStatement st = con.prepareStatement(query);
-                st.setString(1, bartenderID);
-                st.setString(2, bartenderName);
-                st.setString(3, bartenderPhone);
-                st.setString(4, bartenderEmail);
-                st.setString(5, bartenderPass);
-                st.setString(6, bartenderPin);
+                st.setString(1, employeeName);
+                st.setString(2, employeePhone);
+                st.setString(3, employeeEmail);
+                st.setString(4, employeePassword);
+                st.setString(5, employeePin);
                 int insRows = st.executeUpdate();
                 if(insRows > 0){
                     tra = 1;
