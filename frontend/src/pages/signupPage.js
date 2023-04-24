@@ -78,7 +78,7 @@ const SignupPage = () =>{
                                 <div className="App">
                                     <div className="App-background">
                                         <img src={logo} className="App-logo" alt="logo" />
-                                        <h2> <em> You are now logged in! </em></h2>
+                                        <h2> <em> Account created successfully! </em></h2>
 
                                         <div>
                                             <Link className='button' to="/home"> Go to homepage </Link>
