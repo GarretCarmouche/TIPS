@@ -11,21 +11,10 @@ const EmployeeHomePage = () =>{
                 <Route path="/employee-home">
                     <div className="App">
                         <div className='App-background'>
+                            <img src={logo} className="App-logo" alt="logo" />
                             <h1> RFID Tag Identifier </h1>
                             <div>
                                 <Link className='button' to="/RFIDread"> Scan RFID Tag </Link>
-                            </div>
-                        </div>
-                    </div>
-                </Route>
-                <Route exact path="/">
-                    <div className="App">
-                        <div className="App-background">
-                            <img src={logo} className="App-logo" alt="logo" />
-                            <p></p>
-                            <div>
-                                <Link className="button" to="/login"> log in </Link>
-                                <Link className="button" to="/signup"> sign up </Link>
                             </div>
                         </div>
                     </div>

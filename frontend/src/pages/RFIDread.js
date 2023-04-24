@@ -77,6 +77,7 @@ const RFIDread = () => {
                                 <Route path="/RFIDread">
                                     <div className="App">
                                         <div className='App-background'>
+                                            <img src={logo} className="App-logo" alt="logo" />
                                             <h1> RFID Tag Identifier </h1>
                                             <form onSubmit={handleSave}>
                                                 <input autoFocus={true}

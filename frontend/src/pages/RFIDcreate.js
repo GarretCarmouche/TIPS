@@ -79,6 +79,7 @@ const RFID_create = () => {
                                 <Route path="/RFID-create">
                                     <div className="App">
                                         <div className='App-background'>
+                                            <img src={logo} className="App-logo" alt="logo" />
                                             <h1> RFID Tag Creator </h1>
                                             <form onSubmit={handleSave}>
                                                 <input autoFocus={true}
