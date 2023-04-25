@@ -4,11 +4,9 @@ import logo from "../TIPSlogo.png";
 import profile from "../profile-img.png";
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 import { useHistory } from "react-router-dom";
-import globalVariable from "./global";
-
-
 import HomePage from "./homePage";
 import axios from "../axios";
+import globalVariable from "./global";
 
 const EntryPage = () => {
 
@@ -31,8 +29,7 @@ const EntryPage = () => {
     axios
       .get(PAYMENT_METHODS_API_URL, {
         params: {
-          CardName: nameOnCard,
-          CardNumber: cardNumber,
+          customerID: globalVariable.customerID
         },
       })
       .then(function (response) {
