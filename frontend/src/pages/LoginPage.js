@@ -7,6 +7,7 @@ import logo from '../TIPSlogo.png';
 import { useState, useEffect, useRef } from 'react';
 import axios from "../axios";
 import globalVariable from "./global";
+import HomePage from "./homePage";
 
 const CUSTOMER_API_URL = "/getCustomerLogin";
 
@@ -68,6 +69,7 @@ const LoginPage = () => {
 
                                         <div>
                                             <Link className='button' to="/RFID-create"> Create your Tag </Link>
+                                            <Link className='button' to="/home"> Go to Homepage </Link>
                                         </div>
 
                                     </div>
@@ -131,6 +133,9 @@ const LoginPage = () => {
                 </Route>
                 <Route path="/employee-login">
                     <EmployeeLogin/>
+                </Route>
+                <Route path="/home">
+                    <HomePage/>
                 </Route>
             </Switch>
         </Router>
