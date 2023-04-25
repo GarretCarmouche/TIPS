@@ -9,8 +9,6 @@ import { useState, useEffect, useRef } from 'react';
 import axios from "../axios";
 import globalVariable from "./global";
 
-
-
 const EMPLOYEE_API_URL = "/getEmployeeLogin";
 
 const EmployeeLogin = () => {
