@@ -29,7 +29,9 @@ const EntryPage = () => {
     axios
       .get(PAYMENT_METHODS_API_URL, {
         params: {
-          customerID: globalVariable.customerID
+          //customerID: globalVariable.customerID,
+          nameOnCard: nameOnCard,
+          cardNumber: cardNumber
         },
       })
       .then(function (response) {
@@ -72,12 +74,11 @@ const EntryPage = () => {
       name: nameOnCard,
       lastDigits: cardNumber.slice(-4),
     };
-
-    paymentMethods.push(newPaymentMethod);
-    
+  
+    setPaymentMethods([...paymentMethods, newPaymentMethod]);
     setShowForm(false);
-    setSelectedOption(newPaymentMethod.id); 
-
+    setSelectedOption(newPaymentMethod.id);
+  
     e.target.reset();
   };
 
