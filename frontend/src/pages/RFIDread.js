@@ -65,7 +65,6 @@ const RFIDread = () => {
                                     <div className="App-background">
                                         <img src={logo} className="App-logo" alt="logo" />
                                         <h2> <em> Customer Found! </em></h2>
-
                                         <div>
                                             <Link className='button' to="/customer-profile"> Go to Customer Profile </Link>
                                         </div>
