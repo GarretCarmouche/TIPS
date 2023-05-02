@@ -22,7 +22,11 @@ Team 1
 	npm install react-router-dom@5.2.0
     to install the routing libraries provided by React
 
-6. Finally run an 
+6. Then run 
+	npm install react-pin-input --save
+    to install the pin component in the checkout page
+
+7. Finally run an 
 	npm start
    this command will start the project and pull up localhost:3000/ on Google Chrome where you can interact  with the web application*
 
